@@ -23,6 +23,8 @@ export default function DashboardLayout() {
   return (
     <LayoutContainer>
       {renderNavVertical()}
+      {/* <NavVertical openNav={openNav} onCloseNav={handleClose} /> */}
+
       <ContentContainer>
         <Header onOpenNav={handleOpen} />
         <Main>
