@@ -2,7 +2,7 @@ import { useRoutes, Navigate } from "react-router-dom";
 import MainLayout from "../layouts/main/MainLayout";
 import DashboardLayout from "../layouts/dashboard/DashboardLayout";
 
-import { LoginPage, ProductListPage } from "./elements";
+import { LoginPage, ProductListPage, Belt } from "./elements";
 
 export default function RoutesConfig() {
   return useRoutes([
@@ -26,6 +26,10 @@ export default function RoutesConfig() {
             { path: "", element: <Navigate to="list" replace /> },
             { path: "list", element: <ProductListPage /> },
           ],
+        },
+        {
+          path: "belt",
+          element: <Belt />,
         },
       ],
     },

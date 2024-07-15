@@ -18,4 +18,8 @@ export const PATH_DASHBOARD = {
     add: path(ROOTS_DASHBOARD, "/product/add"),
     list: path(ROOTS_DASHBOARD, "/product/list"),
   },
+
+  belt: {
+    root: path(ROOTS_DASHBOARD, "/belt"),
+  },
 };
