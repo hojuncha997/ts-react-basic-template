@@ -20,11 +20,12 @@ export default function Belt() {
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell>Leather Belt</TableCell>
+            <TableCell style={{backgroundColor:"lightgrey", padding: "1em"}}
+            mediaStyle={{ backgroundColor: "lightblue", padding: "2em" }}>Leather Belt</TableCell>
             <TableCell>101110</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Chain Belt</TableCell>
+            <TableCell style={{backgroundColor:"ivory", padding: "1em"}}><div>Chain Belt</div><div>Chain Belt</div></TableCell>
             <TableCell>200sfsdfdf</TableCell>
           </TableRow>
         </TableBody>

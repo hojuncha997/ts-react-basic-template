@@ -21,6 +21,17 @@ const navConfig = [
       },
     ],
   },
+  {
+    subheader: "BELT",
+    items: [
+      {
+        title: "단증",
+        path: PATH_DASHBOARD.belt.root,
+        // icon: ICONS.product,
+      },
+    ],
+  },
+
 ];
 
 export default navConfig;
