@@ -10,7 +10,9 @@ const Loadable =
     );
 
 // export const LoginPage = lazy(() => import("../pages/loginPage"));
-export const LoginPage = Loadable(lazy(() => import("../pages/LoginPage")));
+export const LoginPage = Loadable(
+  lazy(() => import("../pages/auth/LoginPage"))
+);
 
 export const ProductListPage = Loadable(
   lazy(() => import("../pages/product/ProductListPage"))

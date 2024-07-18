@@ -4,9 +4,8 @@ import {
   TableBody,
   TableRow,
   TableHeaderCell,
-  TableCell,
 } from "../components/common";
-
+import TableCell from "../components/common/table/TableCell";
 export default function Belt() {
   return (
     <>
@@ -20,12 +19,22 @@ export default function Belt() {
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell style={{backgroundColor:"lightgrey", padding: "1em"}}
-            mediaStyle={{ backgroundColor: "lightblue", padding: "2em" }}>Leather Belt</TableCell>
+            <TableCell
+              style={{ backgroundColor: "lightgrey" }}
+              mediaStyle={{
+                minWidth: 768,
+                styles: { padding: "11em", backgroundColor: "blue" },
+              }}
+            >
+              Leather Belt
+            </TableCell>
             <TableCell>101110</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell style={{backgroundColor:"ivory", padding: "1em"}}><div>Chain Belt</div><div>Chain Belt</div></TableCell>
+            <TableCell style={{ backgroundColor: "ivory", padding: "1em" }}>
+              <div>Chain Belt</div>
+              <div>Chain Belt</div>
+            </TableCell>
             <TableCell>200sfsdfdf</TableCell>
           </TableRow>
         </TableBody>
