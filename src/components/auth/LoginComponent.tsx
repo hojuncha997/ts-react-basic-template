@@ -1,6 +1,6 @@
-import styled from "styled-components";
-
 import { ReactNode } from "react";
+import styled from "styled-components";
+import LoginForm from "./LoginForm";
 
 type LoginComponentProps = {
   children?: ReactNode;
@@ -12,8 +12,9 @@ export default function LoginComponent({
   return (
     <>
       <StyledLoginComponent>
-        로그인 컴포넌트
-        <LoginFormContainer>sfdsdfffffffffffffff</LoginFormContainer>
+        <LoginFormContainer>
+          <LoginForm></LoginForm>
+        </LoginFormContainer>
       </StyledLoginComponent>
     </>
   );
@@ -32,6 +33,9 @@ const LoginFormContainer = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: #000;
+  //   height: 100vh;
+  min-width: min(90%, 30em);
+  min-height: 300px;
+  background-color: #eee;
+  border: 1px solid #000;
 `;
