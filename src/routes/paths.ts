@@ -5,6 +5,14 @@ function path(root: string, sublink: string) {
 const ROOTS_AUTH = "/auth";
 const ROOTS_DASHBOARD = "/dashboard";
 
+// ----------------------------------------------------------------------
+
+export const PATH_AUTH = {
+  root: ROOTS_AUTH,
+  login: path(ROOTS_AUTH, "/login"),
+  loginUnprotected: path(ROOTS_AUTH, "/login-unprotected"),
+};
+
 export const PATH_DASHBOARD = {
   ROOT: ROOTS_DASHBOARD,
   APP: path(ROOTS_DASHBOARD, "/login"),
