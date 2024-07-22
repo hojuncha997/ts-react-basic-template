@@ -6,6 +6,7 @@ import {
   useMemo,
   ReactNode,
 } from "react";
+
 import localStorageAvailable from "../utils/localStorageAvailable";
 import { isValidToken, setSession } from "./utils";
 import {
@@ -14,7 +15,7 @@ import {
   AuthUserType,
   JWTContextType,
 } from "./types";
-import { axios } from "../utils/axios";
+import { axios , loginFormAxios} from "../utils/axios";
 
 enum Types {
   INITIAL = "INITIAL",
@@ -116,6 +117,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const storageAvailable = localStorageAvailable();
 
+
+  // 페이지를 새로고침 하거나 브라우저를 닫았다가 다시 열었을 때, 초기화를 위한 함수
   const initialize = useCallback(async () => {
     try {
       // 로컬 스토리지가 사용 가능하다면 accessToken을 가져온다.
@@ -123,13 +126,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
         ? localStorage.getItem("accessToken")
         : "";
 
+
       if (accessToken && isValidToken(accessToken)) {
         // 토큰이 존재한다면 세션을 설정한다(로컬 스토리지에 토큰을 저장하고, 타이머를 맞춤)
         setSession(accessToken);
 
         // API 요청을 통해 사용자 정보를 가져온다.(이미 보유하고 있는 토큰을 사용)
-        const response = await axios.get("/api/account/my-account");
-        const { user } = response.data;
+        // const response = await axios.get("/api/account/my-account"); 새로고침 시 사용되나 해당 api엎으므로 주석처리
+        // const { user } = response.data;
+
+        // 테스트용 사용자 정보
+        const user = {
+          id: 1,
+          email: "user1@aaa.com",
+          password: "1111"
+        };
+        
 
         // 토큰이 유효하다면 사용자 정보를 가져와서 state를 업데이트한다.
         dispatch({
@@ -163,6 +175,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [storageAvailable]);
 
   // 이 useEffect는 AuthProvider 컴포넌트가 마운트될 때, 그리고 initialize 함수가 변경될 때마다 실행된다
+  // 새로고침이나 브라우저를 닫았다가 다시 열었을 때, 전체 앱이 초기화 된다 이 때 initialize 함수가 실행된다.
+  // AuthProvider가 App.tsx의 컴포넌트들을 가장 바깥에서 감싸고 있으므로 내부의 컴포넌트들이 초기화 되기 전에 먼저 초기화된다.
   useEffect(() => {
     initialize();
   }, [initialize]);
@@ -183,21 +197,32 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const { accessToken, user } = response.data;
 
     */
+   
+    const form = new FormData();
+    form.append("username", email);
+    form.append("password", password);
+
+    alert(form);
+    const response = await loginFormAxios.post("/api/member/login", form);
+    alert(JSON.stringify(response));
+    const { accessToken, user } = response.data;
+    alert(accessToken)
+    alert(user)
 
     // 테스트용 로그인 코드
-    let user = null;
-    let accessToken = null;
+    // let user = null;
+    // let accessToken = null;
 
-    if (email === "hojun.cha997@gmail.com" && password === "1234") {
-      accessToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibmFtZSI6IlRlc3QgVXNlciIsImV4cCI6MTY4NDE2MTYwMH0.d-JX_mXFPdo0IVS_lg5Zl5GyFX02VyL5HfEMEjUle5Y";
-      user = {
-        id: 1,
-        email: "hojun.cha997@gmail.com",
-      };
-    } else {
-      throw new Error("Invalid email or password");
-    }
+    // if (email === "hojun.cha997@gmail.com" && password === "1234") {
+    //   accessToken =
+    //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibmFtZSI6IlRlc3QgVXNlciIsImV4cCI6MTY4NDE2MTYwMH0.d-JX_mXFPdo0IVS_lg5Zl5GyFX02VyL5HfEMEjUle5Y";
+    //   user = {
+    //     id: 1,
+    //     email: "hojun.cha997@gmail.com",
+    //   };
+    // } else {
+    //   throw new Error("Invalid email or password");
+    // }
 
     setSession(accessToken);
 

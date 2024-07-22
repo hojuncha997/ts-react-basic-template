@@ -47,10 +47,10 @@ export const tokenExpired = (exp: number) => {
   let expiredTimer;
 
   const currentTime = Date.now();
-  alert("currentTime: " + currentTime);
+  // alert("currentTime: " + currentTime);
   const timeLeft = exp * 1000 - currentTime;
 
-  alert("timeLeft: " + timeLeft);
+  // alert("timeLeft: " + timeLeft);
   // 만료 타이머가 이미 설정되어 있는 경우, 이전 타이머를 제거한다.
   clearTimeout(expiredTimer);
 
@@ -63,26 +63,6 @@ export const tokenExpired = (exp: number) => {
   }, timeLeft);
 };
 
-// export const tokenExpired = (exp: number) => {
-//   // eslint-disable-next-line prefer-const
-//   let expiredTimer;
-
-//   const currentTime = Date.now();
-
-//   // Test token expires after 10s
-//   // const timeLeft = currentTime + 10000 - currentTime; // ~10s
-//   const timeLeft = exp * 1000 - currentTime;
-
-//   clearTimeout(expiredTimer);
-
-//   expiredTimer = setTimeout(() => {
-//     alert("Token expired");
-
-//     localStorage.removeItem("accessToken");
-
-//     window.location.href = PATH_AUTH.login;
-//   }, timeLeft);
-// };
 
 // ----------------------------------------------------------------------
 

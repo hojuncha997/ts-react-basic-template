@@ -16,6 +16,15 @@ const fileInstance = axios.create({
   responseType: "blob",
 });
 
+
+const loginFormInstance = axios.create({
+  baseURL: HOST_API_KEY,
+  headers: {
+    ...axiosInstance.defaults.headers,
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+});
+
 axiosInstance.interceptors.request.use(
   (config) => {
     const access_token = localStorage.getItem("accessToken");
@@ -42,4 +51,4 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export { axiosInstance as axios, fileInstance as fileAxios };
+export { axiosInstance as axios, loginFormInstance as loginFormAxios, fileInstance as fileAxios };
