@@ -7,21 +7,23 @@ import {
   ReactNode,
 } from "react";
 import localStorageAvailable from "../utils/localStorageAvailable";
-import { isValidToken, setSession } from './utils';
-import { ActionMapType, AuthStateType, AuthUserType, JWTContextType } from './types';
-import {axios} from '../utils/axios';
-
-
+import { isValidToken, setSession } from "./utils";
+import {
+  ActionMapType,
+  AuthStateType,
+  AuthUserType,
+  JWTContextType,
+} from "./types";
+import { axios } from "../utils/axios";
 
 enum Types {
-  INITIAL = 'INITIAL',
-  LOGIN = 'LOGIN',
-  REGISTER = 'REGISTER',
-  LOGOUT = 'LOGOUT',
+  INITIAL = "INITIAL",
+  LOGIN = "LOGIN",
+  REGISTER = "REGISTER",
+  LOGOUT = "LOGOUT",
 }
 
-
-  // Types 타입에서 Value를 가져오기 위해 대괄호에 키를 넣는다. 그렇게 가져온 문자열은 Payload의 키로 사용된다.
+// Types 타입에서 Value를 가져오기 위해 대괄호에 키를 넣는다. 그렇게 가져온 문자열은 Payload의 키로 사용된다.
 type Payload = {
   [Types.INITIAL]: {
     isAuthenticated: boolean;
@@ -46,8 +48,6 @@ ActionMapType<Payload>[keyof ActionMapType<Payload>]: 생성된 객체 타입에
 이를 통해 ActionsType은 Payload에 정의된 모든 액션 타입을 포괄하는 타입으로 정의
 */
 
-
-
 // ----------------------------------------------------------------------
 
 const initialState: AuthStateType = {
@@ -56,7 +56,7 @@ const initialState: AuthStateType = {
   user: null,
 };
 
-// useReducer 훅에 파라미터로 전달할 reducer 함수이다. 
+// useReducer 훅에 파라미터로 전달할 reducer 함수이다.
 // dispatch 함수가 reducer 함수에게 action을 전달하면, reducer 함수는 action의 타입에 따라 state를 변경한다.
 // reducer 함수는 state와 action을 받아서 새로운 state를 반환한다.
 const reducer = (state: AuthStateType, action: ActionsType) => {
@@ -93,14 +93,12 @@ const reducer = (state: AuthStateType, action: ActionsType) => {
 
 // ----------------------------------------------------------------------
 
-
 // 전역에서 사용할 수 있는 데이터를 제공하는 컴포넌트를 만들기 위해 createContext 함수를 사용
 // createContext 함수는 Context 객체를 반환하며, 이 객체는 Provider와 Consumer를 가진다.
 // Provider는 Context 객체를 구독하는 컴포넌트들에게 context의 변화를 알리는 역할을 한다.
 // Consumer는 context를 구독하는 컴포넌트이다. 즉, 해당 데이터를 사용하는 컴포넌트이다.
 
 export const AuthContext = createContext<JWTContextType | null>(null);
-
 
 // ----------------------------------------------------------------------
 
@@ -110,8 +108,8 @@ type AuthProviderProps = {
 
 // 추후 이 AuthProvider가 App.tsx의 리턴 값을 전부 감싸는 역할을 한다.
 // 이 컴포넌트가 반환하는 것은 AuthContext.Provider이며, 이 컴포넌트는 value prop을 통해 값을 전달한다.
-export function AuthProvider({ children }: AuthProviderProps) {
 
+export function AuthProvider({ children }: AuthProviderProps) {
   // useReducer에서 반환하는 dispatch 함수가 reducer 함수를 호출해서 state를 변경한다.
   // 이 때 dispatch는 파라미터로 action을 받는다. 이 action은 다시 reducer 함수의 두 번째 인자로 전달된다.
   const [state, dispatch] = useReducer(reducer, initialState); //false false null
@@ -121,15 +119,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const initialize = useCallback(async () => {
     try {
       // 로컬 스토리지가 사용 가능하다면 accessToken을 가져온다.
-      const accessToken = storageAvailable ? localStorage.getItem('accessToken') : '';
-
+      const accessToken = storageAvailable
+        ? localStorage.getItem("accessToken")
+        : "";
 
       if (accessToken && isValidToken(accessToken)) {
         // 토큰이 존재한다면 세션을 설정한다(로컬 스토리지에 토큰을 저장하고, 타이머를 맞춤)
         setSession(accessToken);
 
         // API 요청을 통해 사용자 정보를 가져온다.(이미 보유하고 있는 토큰을 사용)
-        const response = await axios.get('/api/account/my-account');
+        const response = await axios.get("/api/account/my-account");
         const { user } = response.data;
 
         // 토큰이 유효하다면 사용자 정보를 가져와서 state를 업데이트한다.
@@ -168,15 +167,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
     initialize();
   }, [initialize]);
 
-
-
   // 아래 함수들은 useContext를 사용하여 컨슈머 컴포넌트에서 사용할 수 있도록 제공된다.
   // const { login, register, logout } = useContext(AuthContext);
 
-
   // LOGIN
   const login = useCallback(async (email: string, password: string) => {
-    const response = await axios.post('/api/account/login', {
+    console.log("login email: " + email + " password: " + password);
+    const response = await axios.post("/api/account/login", {
       email,
       password,
     });
@@ -194,8 +191,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // REGISTER
   const register = useCallback(
-    async (email: string, password: string, firstName: string, lastName: string) => {
-      const response = await axios.post('/api/account/register', {
+    async (
+      email: string,
+      password: string,
+      firstName: string,
+      lastName: string
+    ) => {
+      const response = await axios.post("/api/account/register", {
         email,
         password,
         firstName,
@@ -203,7 +205,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       });
       const { accessToken, user } = response.data;
 
-      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem("accessToken", accessToken);
 
       dispatch({
         type: Types.REGISTER,
@@ -223,18 +225,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
     });
   }, []);
 
-
   /*
     실제로 자식컴포넌트들이 사용할 값을 보유하고 있는, 자식들이게 전달되는 값
    */
-
 
   const memoizedValue = useMemo(
     () => ({
       isInitialized: state.isInitialized,
       isAuthenticated: state.isAuthenticated,
       user: state.user,
-      method: 'jwt',
+      method: "jwt",
       login,
       loginWithGoogle: () => {},
       loginWithGithub: () => {},
@@ -242,10 +242,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
       register,
       logout,
     }),
-    [state.isAuthenticated, state.isInitialized, state.user, login, logout, register]
+    [
+      state.isAuthenticated,
+      state.isInitialized,
+      state.user,
+      login,
+      logout,
+      register,
+    ]
   );
 
-  
   /*
     컨텍스트 값 저장:
     - AuthContext를 통해 자식 컴포넌트들에게 전달될 모든 값과 함수들을 포함
@@ -273,5 +279,31 @@ export function AuthProvider({ children }: AuthProviderProps) {
     이 구조는 인증 관련 로직과 상태를 중앙에서 관리하면서, 필요한 컴포넌트에서 쉽게 접근할 수 있게 해줌
   */
 
-  return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={memoizedValue}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
+
+/*
+
+용례:
+
+로그인 기능을 사용하는 컨슈머 컴포넌트에서 login 함수를 임포트한다.
+email, password 값이 파라미터로 로그인함수에 전달된다.
+로그인 함수는 axios를 사용하여 서버로 요청을 보내고, 응답을 받는다.
+응답에는 accessToken과 user 정보가 포함되어 있다.
+응답을 통해 받은 accessToken을 로컬 스토리지에 저장한다.(setSession(accessToken))
+
+이후, dispatch 함수를 사용하여 useReducer훅의 reducer함수에게 type과 payload를 전달한다.
+이 때, type은 Types.LOGIN이고, payload는 user 정보를 전달한다.
+
+reducer함수는 type과 payload를 받아서 새로운 상태값으로 지정될 객체를 반환한다.
+useReducer훅은 이 반환된 객체를 사용하여 state를 업데이트한다.
+
+상태 값이 업데이트 됨에 따라 AuthProvider에서 useMemo를 사용하여 관리하는 값들이 변경되고,
+React는 변경을 감지하여 AuthProvider는 물론 이 값(컨텍스트)를 사용하는 모든 자식 컴포넌트를 재렌더링한다.
+
+
+*/
