@@ -197,32 +197,33 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const { accessToken, user } = response.data;
 
     */
-   
+
+   // 토큰을 만들어주는 API 서버가 있는 경우 사용
     const form = new FormData();
     form.append("username", email);
     form.append("password", password);
 
-    alert(form);
     const response = await loginFormAxios.post("/api/member/login", form);
     alert(JSON.stringify(response));
     const { accessToken, user } = response.data;
-    alert(accessToken)
-    alert(user)
 
+
+/*
     // 테스트용 로그인 코드
-    // let user = null;
-    // let accessToken = null;
+    let user = null;
+    let accessToken = null;
 
-    // if (email === "hojun.cha997@gmail.com" && password === "1234") {
-    //   accessToken =
-    //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibmFtZSI6IlRlc3QgVXNlciIsImV4cCI6MTY4NDE2MTYwMH0.d-JX_mXFPdo0IVS_lg5Zl5GyFX02VyL5HfEMEjUle5Y";
-    //   user = {
-    //     id: 1,
-    //     email: "hojun.cha997@gmail.com",
-    //   };
-    // } else {
-    //   throw new Error("Invalid email or password");
-    // }
+    if (email === "hojun.cha997@gmail.com" && password === "1234") {
+      accessToken =
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzb2NpYWwiOmZhbHNlLCJwdyI6IiQyYSQxMCRlNXZ2QUg1SjFnWWd2anN1bFRDNTguVy5qRUE4cXJjMnZyb0dkMi41TDZXekRGcWJ3SmdiLiIsIm5pY2tuYW1lIjoiVVNFUjEiLCJyb2xlTmFtZXMiOlsiVVNFUiJdLCJlbWFpbCI6InVzZXIxQGFhYS5jb20iLCJpYXQiOjE3MjE2NTE3OTMsImV4cCI6MTcyMTY1MjM5M30.iDc3xP2psuY1DiX5NWDny6XtvPP5q9GhAsl5p-fIZNY";
+      user = {
+        id: 1,
+        email: "hojun.cha997@gmail.com",
+      };
+    } else {
+      throw new Error("Invalid email or password");
+    }
+      */
 
     setSession(accessToken);
 
