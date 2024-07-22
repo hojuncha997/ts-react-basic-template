@@ -173,11 +173,31 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // LOGIN
   const login = useCallback(async (email: string, password: string) => {
     console.log("login email: " + email + " password: " + password);
+
+    /*
+    테스트 하는 동안 주석처리
     const response = await axios.post("/api/account/login", {
       email,
       password,
     });
     const { accessToken, user } = response.data;
+
+    */
+
+    // 테스트용 로그인 코드
+    let user = null;
+    let accessToken = null;
+
+    if (email === "hojun.cha997@gmail.com" && password === "1234") {
+      accessToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibmFtZSI6IlRlc3QgVXNlciIsImV4cCI6MTY4NDE2MTYwMH0.d-JX_mXFPdo0IVS_lg5Zl5GyFX02VyL5HfEMEjUle5Y";
+      user = {
+        id: 1,
+        email: "hojun.cha997@gmail.com",
+      };
+    } else {
+      throw new Error("Invalid email or password");
+    }
 
     setSession(accessToken);
 

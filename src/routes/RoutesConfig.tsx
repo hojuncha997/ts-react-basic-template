@@ -2,10 +2,29 @@ import { useRoutes, Navigate } from "react-router-dom";
 import MainLayout from "../layouts/main/MainLayout";
 import DashboardLayout from "../layouts/dashboard/DashboardLayout";
 
+import GuestGuard from "../auth/GuestGuard";
+import AuthGuard from "../auth/AuthGuard";
+
 import { LoginPage, ProductListPage, Belt } from "./elements";
 
 export default function RoutesConfig() {
   return useRoutes([
+    // Auth
+    {
+      path: "auth",
+      children: [
+        {
+          path: "login",
+          element: (
+            // GuestGuard는 인증되지 않은 사용자만 접근할 수 있다
+            <GuestGuard>
+              <LoginPage />
+            </GuestGuard>
+          ),
+        },
+      ],
+    },
+
     {
       path: "/",
       element: <MainLayout />,
@@ -15,13 +34,14 @@ export default function RoutesConfig() {
         // { path: "products", element: <ProductListPage children={null} /> },
       ],
     },
-    {
-      path: "auth",
-      children: [{ path: "login", element: <LoginPage /> }],
-    },
+
     {
       path: "dashboard",
-      element: <DashboardLayout />,
+      element: (
+        <AuthGuard>
+          <DashboardLayout />
+        </AuthGuard>
+      ),
       children: [
         {
           path: "product",
