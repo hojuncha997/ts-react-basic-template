@@ -1,0 +1,116 @@
+import React, { useState, useEffect, ReactElement } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import styled, { createGlobalStyle, css } from "styled-components";
+import useResponsive from "../../../hooks/useResponsive";
+import navConfig from "./nav-config";
+import { NAV } from "../../../config-global";
+
+type NavVerticalProps = {
+  openNav: boolean;
+  onCloseNav: () => void;
+};
+
+export function NavVertical({
+  openNav,
+  onCloseNav,
+}: NavVerticalProps): ReactElement {
+  const [enableTransition, setEnableTransition] = useState(false);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { width } = useResponsive();
+
+  useEffect(() => {
+    if (openNav) {
+      onCloseNav();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  useEffect(() => {
+    if (width < 768) {
+      setEnableTransition(true);
+    } else {
+      setEnableTransition(false);
+    }
+  }, [width]);
+
+  const handleNavigate = (path: string) => {
+    onCloseNav();
+    navigate(path);
+  };
+
+  const closeNav = () => {
+    onCloseNav();
+  };
+
+  return (
+    <>
+      <GlobalStyle />
+
+      <NavContainer openNav={openNav} enableTransition={enableTransition}>
+        <NavList>
+          {navConfig.map((item, index) => (
+            <li key={index}>
+              <h3>{item.subheader}</h3>
+              <NavList>
+                {item.items.map((navItem, index) => (
+                  <NavItem
+                    key={index}
+                    onClick={() => handleNavigate(navItem.path)}
+                  >
+                    {navItem.title}
+                  </NavItem>
+                ))}
+              </NavList>
+            </li>
+          ))}
+        </NavList>
+      </NavContainer>
+      {width < 768 && <Backdrop openNav={openNav} onClick={closeNav} />}
+    </>
+  );
+}
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+`;
+
+type NavContainerProps = {
+  openNav: boolean;
+  enableTransition: boolean;
+};
+
+const NavContainer = styled.div<NavContainerProps>`
+  position: fixed;
+  top: 0;
+  left: ${(props) => (props.openNav ? "0" : `-${NAV.W_DASHBOARD}px`)};
+  width: ${NAV.W_DASHBOARD}px;
+  height: 100vh;
+  border-right: 1px solid black;
+  overflow-y: auto;
+  background-color: white;
+  z-index: 1200;
+  transition: ${(props) =>
+    props.enableTransition ? "left 0.3s ease" : "none"};
+
+  @media (min-width: 768px) {
+    left: 0;
+    position: static;
+    display: block;
+    /*
+    여기에 transition:none을 추가해도 transition이 적용된다.
+
+    미디어 쿼리는 스타일 시트의 일부로서 CSS에 의해 적용되기 때문에,
+    JavaScript에 의해 동적으로 변경되는 상태를 처리하는 데는 한계가 있다.
+     미디어 쿼리는 CSS 파일이 처음 로드될 때 적용되므로,
+     화면 크기가 변경될 때 실시간으로 반응하지 않을 수 있다.
+
+     따라서 JS를 통해서 동적으로 상태를 관리하고 그 상태를 사용해서
+     실시간으로 스타일을 변경할 수 있도록 했다.
+     */
+  }
+`;
