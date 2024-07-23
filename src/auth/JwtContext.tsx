@@ -15,7 +15,12 @@ import {
   AuthUserType,
   JWTContextType,
 } from "./types";
-import { axios , loginFormAxios} from "../utils/axios";
+
+import { axios, loginFormAxios } from "../utils/axios";
+
+// yarn add jsonwebtoken
+// yarn add @types/jsonwebtoken
+// import jwt from "jsonwebtoken";
 
 enum Types {
   INITIAL = "INITIAL",
@@ -117,7 +122,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const storageAvailable = localStorageAvailable();
 
-
   // 페이지를 새로고침 하거나 브라우저를 닫았다가 다시 열었을 때, 초기화를 위한 함수
   const initialize = useCallback(async () => {
     try {
@@ -125,7 +129,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const accessToken = storageAvailable
         ? localStorage.getItem("accessToken")
         : "";
-
 
       if (accessToken && isValidToken(accessToken)) {
         // 토큰이 존재한다면 세션을 설정한다(로컬 스토리지에 토큰을 저장하고, 타이머를 맞춤)
@@ -139,9 +142,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const user = {
           id: 1,
           email: "user1@aaa.com",
-          password: "1111"
+          password: "1111",
         };
-        
 
         // 토큰이 유효하다면 사용자 정보를 가져와서 state를 업데이트한다.
         dispatch({
@@ -198,7 +200,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     */
 
-   // 토큰을 만들어주는 API 서버가 있는 경우 사용
+    // 토큰을 만들어주는 API 서버가 있는 경우 사용
     const form = new FormData();
     form.append("username", email);
     form.append("password", password);
@@ -207,23 +209,34 @@ export function AuthProvider({ children }: AuthProviderProps) {
     alert(JSON.stringify(response));
     const { accessToken, user } = response.data;
 
+    /*
+      서버에 다녀오지 않아도 클라이언트에서 테스트 할 수 있도록 jsonwebtoken 라이브러리를 사용하여 토큰을 생성
+      로그인 시 아무 계정 정보를 넣어도 같은 정보를 담은 토큰이 생성된다.
+      
+      yarn add jsonwebtoken
+      yarn add @types/jsonwebtoken
 
-/*
-    // 테스트용 로그인 코드
-    let user = null;
-    let accessToken = null;
+    */
+    // 현재 시간 기준으로 만료 시간 설정 (예: 1시간 후)
+    // const currentTime = Math.floor(Date.now() / 1000); // 현재 시간 (초 단위)
+    // const expirationTime = currentTime + 60 * 60; // 1시간 후 (초 단위)
 
-    if (email === "hojun.cha997@gmail.com" && password === "1234") {
-      accessToken =
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzb2NpYWwiOmZhbHNlLCJwdyI6IiQyYSQxMCRlNXZ2QUg1SjFnWWd2anN1bFRDNTguVy5qRUE4cXJjMnZyb0dkMi41TDZXekRGcWJ3SmdiLiIsIm5pY2tuYW1lIjoiVVNFUjEiLCJyb2xlTmFtZXMiOlsiVVNFUiJdLCJlbWFpbCI6InVzZXIxQGFhYS5jb20iLCJpYXQiOjE3MjE2NTE3OTMsImV4cCI6MTcyMTY1MjM5M30.iDc3xP2psuY1DiX5NWDny6XtvPP5q9GhAsl5p-fIZNY";
-      user = {
-        id: 1,
-        email: "hojun.cha997@gmail.com",
-      };
-    } else {
-      throw new Error("Invalid email or password");
-    }
-      */
+    // // JWT 생성
+    // const payload = {
+    //   id: 1,
+    //   email,
+    //   nickname: "USER1",
+    //   roleNames: ["USER"],
+    //   exp: expirationTime, // 만료 시간 설정
+    // };
+    // const secretKey = "your-very-secure-secret-key"; // 테스트용 비밀 키
+    // const accessToken = jwt.sign(payload, secretKey);
+
+    // // 테스트용 사용자 정보
+    // const user = {
+    //   id: 1,
+    //   email: "hojun.cha997@gmail.com",
+    // };
 
     setSession(accessToken);
 
