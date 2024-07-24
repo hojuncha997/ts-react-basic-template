@@ -17,6 +17,10 @@ const navConfig = [
       {
         title: "상품목록",
         path: PATH_DASHBOARD.product.root,
+        children: [
+          { title: "서브메뉴1", path: "/sub1" },
+          { title: "서브메뉴2", path: "/sub2" },
+        ],
         // icon: ICONS.product,
       },
     ],
@@ -27,11 +31,11 @@ const navConfig = [
       {
         title: "단증",
         path: PATH_DASHBOARD.belt.root,
+        // children: [{ title: "sdfsd" }],
         // icon: ICONS.product,
       },
     ],
   },
-
 ];
 
 export default navConfig;
