@@ -54,6 +54,13 @@
 
 import { ReactNode } from "react";
 
+export type NavListRootProps = {
+  data: NavListProps;
+  depth: number;
+  hasChild: boolean;
+  onCloseNav: () => void;
+};
+
 // 소메뉴
 export type NavListProps = {
   title: string;
@@ -81,4 +88,6 @@ export type NavSectionProps = {
     subheader: string;
     items: NavListProps[];
   }[];
+
+  onCloseNav: () => void;
 };

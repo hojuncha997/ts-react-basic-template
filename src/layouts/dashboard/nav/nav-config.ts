@@ -16,7 +16,8 @@ const navConfig = [
     items: [
       {
         title: "상품목록",
-        path: PATH_DASHBOARD.product.root,
+        // path: PATH_DASHBOARD.product.root,
+        path: "",
         children: [
           { title: "서브메뉴1", path: "/sub1" },
           { title: "서브메뉴2", path: "/sub2" },
@@ -31,6 +32,12 @@ const navConfig = [
       {
         title: "단증",
         path: PATH_DASHBOARD.belt.root,
+        // children: [{ title: "sdfsd" }],
+        // icon: ICONS.product,
+      },
+      {
+        title: "네이버",
+        path: "https://naver.com",
         // children: [{ title: "sdfsd" }],
         // icon: ICONS.product,
       },

@@ -132,10 +132,28 @@
 //   return <div>{renderItem()}</div>;
 //   //   return <div>{renderContent}</div>;
 // }
-
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { NavItemProps } from "./types";
+import styled from "styled-components";
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    text-decoration: none;
+  }
+`;
+
+const ItemContent = styled.div<{ active: boolean; depth: number }>`
+  padding: 10px;
+  padding-left: ${(props) => props.depth * 20}px;
+  cursor: pointer;
+  background-color: ${(props) => (props.active ? "#078DEE1F" : "transparent")};
+  &:hover {
+    background-color: #f5f5f5;
+  }
+`;
 
 export default function NavItem({
   item,
@@ -143,32 +161,33 @@ export default function NavItem({
   open,
   active,
   isExternalLink,
+  onClick,
   ...other
 }: NavItemProps) {
+  // 소메뉴 객체에서 각 속성들을 구조분해할당한다
   const { title, path, icon, children } = item;
 
   const renderContent = (
-    <div
-      style={{
-        padding: "10px",
-        cursor: "pointer",
-        backgroundColor: active ? "#f0f0f0" : "transparent",
-      }}
-      {...other}
-    >
+    <ItemContent active={active} depth={depth} onClick={onClick} {...other}>
       {icon && <span style={{ marginRight: "10px" }}>{icon}</span>}
       <span>{title}</span>
       {!!children && <span style={{ float: "right" }}>{open ? "▼" : "▶"}</span>}
-    </div>
+    </ItemContent>
   );
 
+  //   만약 소메뉴 객체의 path값이 외부링크라면 a태그로 새 탭에 띄운다
   if (isExternalLink) {
     return (
-      <a href={path} target="_blank" rel="noopener noreferrer">
+      <a
+        href={path}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: "none", color: "inherit" }}
+      >
         {renderContent}
       </a>
     );
   }
 
-  return <RouterLink to={path}>{renderContent}</RouterLink>;
+  return <StyledLink to={path}>{renderContent}</StyledLink>;
 }

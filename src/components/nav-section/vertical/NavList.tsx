@@ -104,23 +104,39 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import useActiveLink from "../../../hooks/useActiveLink";
-import { NavListProps } from "./types";
+import { NavListProps, NavListRootProps } from "./types";
 import NavItem from "./NavItem";
 
-type NavListRootProps = {
-  data: NavListProps;
-  depth: number;
-  hasChild: boolean;
-};
-
-export default function NavList({ data, depth, hasChild }: NavListRootProps) {
+export default function NavList({
+  data,
+  depth,
+  hasChild,
+  onCloseNav,
+}: NavListRootProps) {
   const { pathname } = useLocation();
   const { active, isExternalLink } = useActiveLink(data.path);
   const [open, setOpen] = useState(active);
 
   const handleToggle = () => {
+    // 메뉴를 클릭했을 때 open을 반전시킨다. 즉, 열려있는 메뉴를 닫거나 닫혀있는 메뉴를 열게 한다.
     setOpen(!open);
+    // 메뉴를 클릭했을 때 네비게이션을 닫는다.
+    onCloseNav();
   };
+
+  console.log("data:", data, "depth:", depth, "hasChild:", hasChild);
+  /*
+  data: {
+    "title": "상품목록",
+    "path": "/dashboard/product",
+    "children": [
+        {"title": "서브메뉴1", "path": "/sub1" },
+        {"title": "서브메뉴2", "path": "/sub2" }
+    ]
+  },
+    depth: 1,
+    hasChild: true
+    */
 
   return (
     <div style={{ marginLeft: `${depth * 20}px` }}>
@@ -133,6 +149,7 @@ export default function NavList({ data, depth, hasChild }: NavListRootProps) {
         onClick={handleToggle}
       />
 
+      {/*  hasChild가 true이고 open이 true이며 data.children이 존재하면 하위 메뉴를 렌더링한다. */}
       {hasChild && open && data.children && (
         <div>
           {data.children.map((childItem) => (
@@ -141,6 +158,7 @@ export default function NavList({ data, depth, hasChild }: NavListRootProps) {
               data={childItem}
               depth={depth + 1}
               hasChild={!!childItem.children}
+              onCloseNav={onCloseNav}
             />
           ))}
         </div>

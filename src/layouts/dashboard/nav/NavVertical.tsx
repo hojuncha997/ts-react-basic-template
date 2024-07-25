@@ -224,7 +224,10 @@ import { NAV } from "../../../config-global";
 import NavSectionVertical from "../../../components/nav-section/vertical/NavSectionVertical";
 
 type NavVerticalProps = {
+  // 네비게이션 열림 여부
   openNav: boolean;
+
+  // 네비게이션 닫기 함수
   onCloseNav: () => void;
 };
 
@@ -234,7 +237,7 @@ export function NavVertical({ openNav, onCloseNav }: NavVerticalProps) {
 
   const renderContent = (
     <div style={{ height: "100%", overflowY: "auto" }}>
-      <NavSectionVertical data={navConfig} />
+      <NavSectionVertical data={navConfig} onCloseNav={onCloseNav} />
     </div>
   );
 
@@ -242,6 +245,7 @@ export function NavVertical({ openNav, onCloseNav }: NavVerticalProps) {
     <>
       <NavContainer openNav={openNav}>{renderContent}</NavContainer>
 
+      {/* 너비가 768픽셀보다 작으면 백드롭을 렌더링한다. 백드롭에는 openNav와  */}
       {width < 768 && <Backdrop openNav={openNav} onClick={onCloseNav} />}
     </>
   );
@@ -257,6 +261,7 @@ const NavContainer = styled.div<{ openNav: boolean }>`
   overflow-y: auto;
   background-color: white;
   z-index: 1200;
+  transition: left 0.3s ease;
 
   @media (min-width: 768px) {
     left: 0;
@@ -274,6 +279,7 @@ const Backdrop = styled.div<{ openNav: boolean }>`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 500;
+  transition: opacity 0.3s ease;
 
   @media (min-width: 768px) {
     display: none;
