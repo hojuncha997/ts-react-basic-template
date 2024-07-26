@@ -69,6 +69,7 @@ import React, { useState } from "react";
 import NavList from "./NavList";
 import { NavSectionProps, NavListProps } from "./types";
 import styled from "styled-components";
+import NavSection from "./NavSection";
 
 const SubheaderWrapper = styled.div`
   font-weight: bold;
@@ -117,29 +118,35 @@ export default function NavSectionVertical({
         const key = group.subheader || group.items[0].title;
 
         return (
-          <div key={key} {...other}>
-            <SubheaderWrapper onClick={() => toggleSection(group.subheader)}>
-              {/* 서브헤더(대메뉴명) 표시 */}
-              {group.subheader}
-              <ToggleIcon>
-                {/* openSections객체의 group.subheader 키에 대응되는 value의 값이 true라면 ▼, false라면 ▶ 표시 */}
-                {openSections[group.subheader] ? "▼" : "▶"}
-              </ToggleIcon>
-            </SubheaderWrapper>
-
-            {openSections[group.subheader] &&
-              // true이면 소메뉴 객체들을 렌더링한다. list는 소메뉴 객체 하나이다.
-              group.items.map((list: NavListProps) => (
-                <NavList
-                  key={list.title + list.path}
-                  data={list}
-                  depth={1}
-                  hasChild={!!list.children}
-                  onCloseNav={onCloseNav}
-                />
-              ))}
-          </div>
+          <>
+            <NavSection data={group} onCloseNav={onCloseNav} />
+          </>
         );
+
+        // return (
+        //   <div key={key} {...other}>
+        //     <SubheaderWrapper onClick={() => toggleSection(group.subheader)}>
+        //       {/* 서브헤더(대메뉴명) 표시 */}
+        //       {group.subheader}
+        //       <ToggleIcon>
+        //         {/* openSections객체의 group.subheader 키에 대응되는 value의 값이 true라면 ▼, false라면 ▶ 표시 */}
+        //         {openSections[group.subheader] ? "▼" : "▶"}
+        //       </ToggleIcon>
+        //     </SubheaderWrapper>
+
+        //     {openSections[group.subheader] &&
+        //       // true이면 소메뉴 객체들을 렌더링한다. list는 소메뉴 객체 하나이다.
+        //       group.items.map((list: NavListProps) => (
+        //         <NavList
+        //           key={list.title + list.path}
+        //           data={list}
+        //           depth={1}
+        //           hasChild={!!list.children}
+        //           onCloseNav={onCloseNav}
+        //         />
+        //       ))}
+        //   </div>
+        // );
       })}
     </>
   );
