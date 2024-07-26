@@ -1,0 +1,409 @@
+// DashboardLayout
+
+
+import { useState, useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import styled from "styled-components";
+import Main from "./Main";
+import Header from "./header/Header";
+import NavVertical from "./nav/NavVertical";
+
+export default function DashboardLayout() {
+  const [openNav, setOpenNav] = useState<boolean>(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // 새로고침 시 현재 경로에 따라 네비게이션의 열림 상태를 유지
+    const shouldOpenNav = (path: string) => {
+      // 네비게이션 열림 여부를 결정하는 로직 추가
+      // 여기서는 단순히 네비게이션을 항상 열도록 설정
+      // 필요에 따라 로직을 조정할 수 있음
+      return true;
+    };
+    setOpenNav(shouldOpenNav(pathname));
+  }, [pathname]);
+
+  const handleOpen = () => {
+    setOpenNav(true);
+  };
+
+  const handleClose = (path?: string) => {
+    if (path) {
+      setOpenNav(false);
+    }
+  };
+
+  const renderNavVertical = () => (
+    <NavVertical openNav={openNav} onCloseNav={handleClose} />
+  );
+
+  return (
+    <LayoutContainer>
+      {renderNavVertical()}
+      {/* <NavVertical openNav={openNav} onCloseNav={handleClose} /> */}
+
+      <ContentContainer>
+        <Header onOpenNav={handleOpen} />
+        <Main>
+          <Outlet />
+        </Main>
+      </ContentContainer>
+    </LayoutContainer>
+  );
+}
+
+const LayoutContainer = styled.div`
+  display: flex;
+  height: 100vh;
+`;
+
+const ContentContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`;
+
+
+----------------------
+
+
+// NavVertical
+
+import React from "react";
+import styled from "styled-components";
+import NavSection from "../../../components/nav-section/vertical/NavSection";
+import {
+  NavVerticalProps,
+  NavItem,
+} from "../../../components/nav-section/vertical/types";
+import useResponsive from "../../../hooks/useResponsive";
+import navConfig from "./nav-config";
+
+const NAV_WIDTH = 280;
+
+const NavContainer = styled.nav<{ open: boolean }>`
+  width: ${NAV_WIDTH}px;
+  height: 100vh;
+  position: fixed;
+  left: ${(props) => (props.open ? 0 : -NAV_WIDTH)}px;
+  top: 0;
+  background-color: white;
+  transition: left 0.3s ease-in-out;
+  overflow-y: auto;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+`;
+
+const Backdrop = styled.div<{ visible: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: ${(props) => (props.visible ? "block" : "none")};
+`;
+
+const NavVertical: React.FC<NavVerticalProps> = ({ openNav, onCloseNav }) => {
+  const { width } = useResponsive();
+
+  const handleItemClick = (item: NavItem) => {
+    if (!item.children) {
+      onCloseNav();
+    }
+  };
+
+  const renderContent = (
+    <div style={{ height: "100%", overflowY: "auto" }}>
+      {navConfig.map((section) => (
+        <NavSection
+          key={section.subheader}
+          section={section}
+          onItemClick={handleItemClick}
+        />
+      ))}
+    </div>
+  );
+
+  return (
+    <>
+      <NavContainer open={openNav}>{renderContent}</NavContainer>
+      {width < 768 && <Backdrop visible={openNav} onClick={onCloseNav} />}
+    </>
+  );
+};
+
+export default NavVertical;
+
+
+
+-----------------------------------
+
+// NavSection
+
+import React from "react";
+import NavList from "./NavList";
+import { NavSectionProps } from "./types";
+import styled from "styled-components";
+
+const SubheaderWrapper = styled.div`
+  font-weight: bold;
+  padding: 16px 8px 8px;
+`;
+
+const NavSection: React.FC<NavSectionProps> = ({ section, onItemClick }) => {
+  return (
+    <div>
+      <SubheaderWrapper>{section.subheader}</SubheaderWrapper>
+      {section.items.map((item) => (
+        <NavList
+          key={item.title}
+          item={item}
+          depth={0}
+          onItemClick={onItemClick}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default NavSection;
+
+
+
+
+---------------------------------
+
+
+// NavSectionVertical
+
+import React from "react";
+import styled from "styled-components";
+import NavSection from "./NavSection";
+import {
+  NavVerticalProps,
+  NavItem,
+  NavSection as NavSectionType,
+} from "./types";
+import useResponsive from "../../../hooks/useResponsive";
+import navConfig from "../../../layouts/dashboard/nav/nav-config";
+
+const NAV_WIDTH = 280;
+
+const NavContainer = styled.nav<{ open: boolean }>`
+  width: ${NAV_WIDTH}px;
+  height: 100vh;
+  position: fixed;
+  left: ${(props) => (props.open ? 0 : -NAV_WIDTH)}px;
+  top: 0;
+  background-color: white;
+  transition: left 0.3s ease-in-out;
+  overflow-y: auto;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+`;
+
+const Backdrop = styled.div<{ visible: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: ${(props) => (props.visible ? "block" : "none")};
+`;
+
+const NavSectionVertical: React.FC<NavVerticalProps> = ({
+  openNav,
+  onCloseNav,
+}) => {
+  const { width } = useResponsive();
+
+  const handleItemClick = (item: NavItem) => {
+    if (!item.children) {
+      onCloseNav();
+    }
+  };
+
+  return (
+    <>
+      <NavContainer open={openNav}>
+        {navConfig.map((section: NavSectionType) => (
+          <NavSection
+            key={section.subheader}
+            section={section}
+            onItemClick={handleItemClick}
+          />
+        ))}
+      </NavContainer>
+      {width < 768 && <Backdrop visible={openNav} onClick={onCloseNav} />}
+    </>
+  );
+};
+
+export default NavSectionVertical;
+
+
+---------------------------------------
+
+// NavList
+
+
+import React from "react";
+import NavItem from "./NavItem";
+import { NavItem as NavItemType, NavListProps } from "./types";
+
+const NavList: React.FC<NavListProps> = ({ item, depth, onItemClick }) => {
+  return (
+    <>
+      <NavItem item={item} depth={depth} onItemClick={onItemClick} />
+      {item.children && (
+        <div style={{ marginLeft: `${depth * 16}px` }}>
+          {item.children.map((child: NavItemType) => (
+            <NavList
+              key={child.title}
+              item={child}
+              depth={depth + 1}
+              onItemClick={onItemClick}
+            />
+          ))}
+        </div>
+      )}
+    </>
+  );
+};
+
+export default NavList;
+
+
+-----------------------------------------
+
+
+// NavItem
+
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { NavListProps } from "./types";
+
+const StyledNavItem = styled.div<{ depth: number; active: boolean }>`
+  padding: 8px;
+  padding-left: ${(props) => props.depth * 16}px;
+  cursor: pointer;
+  background-color: ${(props) => (props.active ? "#e0e0e0" : "transparent")};
+  &:hover {
+    background-color: #f0f0f0;
+  }
+`;
+
+const NavItem: React.FC<NavListProps> = ({ item, depth, onItemClick }) => {
+  const isExternal = item.path.startsWith("http");
+
+  const content = (
+    <StyledNavItem
+      depth={depth}
+      active={false}
+      onClick={() => onItemClick(item)}
+    >
+      {item.icon && <span style={{ marginRight: "8px" }}>{item.icon}</span>}
+      <span>{item.title}</span>
+      {item.children && <span style={{ float: "right" }}>▶</span>}
+    </StyledNavItem>
+  );
+
+  if (isExternal) {
+    return (
+      <a href={item.path} target="_blank" rel="noopener noreferrer">
+        {content}
+      </a>
+    );
+  }
+
+  return item.children ? content : <Link to={item.path}>{content}</Link>;
+};
+
+export default NavItem;
+
+
+-------------------------------------------
+
+// types.ts @@@
+
+
+import { ReactNode } from "react";
+
+export type NavItem = {
+  title: string;
+  path: string;
+  icon?: ReactNode;
+  children?: NavItem[];
+};
+
+export type NavSection = {
+  subheader: string;
+  items: NavItem[];
+};
+
+export type NavConfig = NavSection[];
+
+export interface NavListProps {
+  item: NavItem;
+  depth: number;
+  onItemClick: (item: NavItem) => void;
+}
+
+export interface NavSectionProps {
+  section: NavSection;
+  onItemClick: (item: NavItem) => void;
+}
+
+export interface NavVerticalProps {
+  openNav: boolean;
+  onCloseNav: () => void;
+}
+
+----------------------------
+
+// nav-config
+
+import { NavConfig } from "../../../components/nav-section/vertical/types";
+
+export const PATH_DASHBOARD = {
+  root: "/dashboard",
+  app: "/dashboard/app",
+  product: {
+    root: "/dashboard/product",
+    list: "/dashboard/product/list",
+  },
+  belt: {
+    root: "/dashboard/belt",
+  },
+};
+
+const navConfig: NavConfig = [
+  {
+    subheader: "로그인",
+    items: [{ title: "로그인", path: PATH_DASHBOARD.app }],
+  },
+  {
+    subheader: "PRODUCT",
+    items: [
+      {
+        title: "상품목록",
+        path: PATH_DASHBOARD.product.root,
+        children: [
+          { title: "서브메뉴1", path: PATH_DASHBOARD.product.list },
+          { title: "서브메뉴2", path: "/sub2" },
+        ],
+      },
+    ],
+  },
+  {
+    subheader: "BELT",
+    items: [
+      { title: "단증", path: PATH_DASHBOARD.belt.root },
+      { title: "네이버", path: "https://naver.com" },
+    ],
+  },
+];
+
+
+
