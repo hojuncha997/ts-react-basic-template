@@ -1,193 +1,62 @@
-// // import { Link as RouterLink } from "react-router-dom";
 
-// // import { NavItemProps } from "./types";
-
-// // export default function NavItem({
-// //   item,
-// //   depth,
-// //   open,
-// //   active,
-// //   isExternalLink,
-// //   ...other
-// // }: NavItemProps) {
-// //   const { title, path, icon, info, children, disabled, caption, roles } = item;
-
-// //   // 반환값은 boolean
-// //   const subItem = depth !== 1;
-
-// //   const renderContent = (
-// //     <div
-// //       depth={depth}
-// //       active={active}
-// //       disabled={disabled}
-// //       caption={!!caption}
-// //       open={open}
-// //       {...other}
-// //     >
-// //       {icon && <div>{icon}</div>}
-
-// //       {subItem && <div>{/* <div active={active && subItem} /> */}</div>}
-
-// //       {info && (
-// //         <div>
-// //           <div>{info}</div>
-// //         </div>
-// //       )}
-
-// //       {!!children && (
-// //         <div>
-// //           <div>{children}</div>
-// //         </div>
-// //       )}
-// //     </div>
-// //   );
-
-// //   const renderItem = () => {
-// //     // External Link
-// //     if (isExternalLink) {
-// //       return (
-// //         <a href={path} target="_blank" rel="noopener">
-// //           {renderContent}
-// //         </a>
-// //       );
-// //     }
-// //   };
-
-// //   return <div>{renderContent}</div>;
-
-// //   //   return <div roles={roles}>{renderItem()}</div>;
-// // }
-// import { Link as RouterLink } from "react-router-dom";
-
-// import { NavItemProps } from "./types";
-
-// export default function NavItem({
-//   item,
-//   depth,
-//   open,
-//   active,
-//   isExternalLink,
-//   ...other
-// }: NavItemProps) {
-//   const { title, path, icon, info, children, disabled, caption, roles } = item;
-
-//   console.log(
-//     "item:",
-//     item,
-//     "depth:",
-//     depth,
-//     "open:",
-//     open,
-//     "active:",
-//     active,
-//     "isExternalLink:",
-//     isExternalLink,
-//     "other:",
-//     other
-//   );
-
-//   // 반환값은 boolean
-//   const subItem = depth !== 1;
-
-//   const renderContent = (
-//     <div
-//       className={`nav-item ${active ? "active" : ""} ${
-//         disabled ? "disabled" : ""
-//       } ${open ? "open" : ""}`}
-//       {...other}
-//     >
-//       {icon && <div>{icon}</div>}
-
-//       {subItem && (
-//         <div className={`sub-item ${active && subItem ? "active" : ""}`} />
-//       )}
-
-//       {info && (
-//         <div>
-//           <div>{info}</div>
-//         </div>
-//       )}
-
-//       {!!children && (
-//         <div>
-//           <div>{children}</div>
-//         </div>
-//       )}
-//     </div>
-//   );
-
-//   const renderItem = () => {
-//     // External Link
-//     if (isExternalLink) {
-//       return (
-//         <a href={path} target="_blank" rel="noopener noreferrer">
-//           {renderContent}
-//         </a>
-//       );
-//     }
-//     // Internal Link
-//     return <RouterLink to={path}>{renderContent}</RouterLink>;
-//   };
-
-//   return <div>{renderItem()}</div>;
-//   //   return <div>{renderContent}</div>;
-// }
 import React from "react";
 import { Link } from "react-router-dom";
-import { NavItemProps } from "./types";
 import styled from "styled-components";
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
-  &:hover {
-    text-decoration: none;
-  }
-`;
 
-const ItemContent = styled.div<{ active: boolean; depth: number }>`
-  padding: 10px;
-  padding-left: ${(props) => props.depth * 20}px;
+
+const ItemContainer = styled.div<{ depth: number; active: boolean }>`
+  padding: 8px 12px;
+  margin-left: ${props => props.depth > 1 ? `${props.depth * 20}px` : '0'};
   cursor: pointer;
-  background-color: ${(props) => (props.active ? "#078DEE1F" : "transparent")};
+  display: flex;
+  align-items: center;
+  color: ${props => props.active ? '#1976d2' : '#333'};
+  background-color: ${props => props.active ? 'rgba(25, 118, 210, 0.08)' : 'transparent'};
+  
   &:hover {
-    background-color: #f5f5f5;
+    background-color: rgba(0, 0, 0, 0.04);
   }
 `;
 
-export default function NavItem({
-  item,
-  depth,
-  open,
-  active,
-  isExternalLink,
-  onClick,
-  ...other
-}: NavItemProps) {
-  // 소메뉴 객체에서 각 속성들을 구조분해할당한다
-  const { title, path, icon, children } = item;
+const ItemTitle = styled.span`
+  margin-left: 12px;
+`;
 
-  const renderContent = (
-    <ItemContent active={active} depth={depth} onClick={onClick} {...other}>
-      {icon && <span style={{ marginRight: "10px" }}>{icon}</span>}
-      <span>{title}</span>
-      {!!children && <span style={{ float: "right" }}>{open ? "▼" : "▶"}</span>}
-    </ItemContent>
+interface NavItemProps {
+  item: {
+    title: string;
+    path: string;
+    icon?: React.ReactNode;
+    children?: any[];
+  };
+  depth: number;
+  open: boolean;
+  onClick: () => void;
+}
+
+const NavItem: React.FC<NavItemProps> = ({ item, depth, open, onClick }) => {
+  const { title, path, icon } = item;
+
+  const content = (
+    <ItemContainer depth={depth} active={open} onClick={onClick}>
+      {icon && <span>{icon}</span>}
+      <ItemTitle>{title}</ItemTitle>
+      {item.children && (
+        <span style={{ marginLeft: 'auto' }}>
+          {open ? '▼' : '▶'}
+        </span>
+      )}
+    </ItemContainer>
   );
 
-  //   만약 소메뉴 객체의 path값이 외부링크라면 a태그로 새 탭에 띄운다
-  if (isExternalLink) {
-    return (
-      <a
-        href={path}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ textDecoration: "none", color: "inherit" }}
-      >
-        {renderContent}
-      </a>
-    );
-  }
+  return item.children ? (
+    content
+  ) : (
+    <Link to={path} style={{ textDecoration: 'none', color: 'inherit' }}>
+      {content}
+    </Link>
+  );
+};
 
-  return <StyledLink to={path}>{renderContent}</StyledLink>;
-}
+export default NavItem;

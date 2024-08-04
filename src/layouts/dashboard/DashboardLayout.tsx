@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Main from "./Main";
 import Header from "./header/Header";
-import { NavVertical } from "./nav/NavVertical";
+import NavVertical  from "./nav/NavVertical";
 
 export default function DashboardLayout() {
   const [openNav, setOpenNav] = useState<boolean>(false);
