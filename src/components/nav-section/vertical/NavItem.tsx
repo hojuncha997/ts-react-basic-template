@@ -175,6 +175,10 @@ export default function NavItem({
     </ItemContent>
   );
 
+  if(path === "") {
+    return renderContent;
+  }
+
   //   만약 소메뉴 객체의 path값이 외부링크라면 a태그로 새 탭에 띄운다
   if (isExternalLink) {
     return (

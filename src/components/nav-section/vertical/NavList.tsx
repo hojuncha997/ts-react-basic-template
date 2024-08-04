@@ -120,9 +120,15 @@ export default function NavList({
   const handleToggle = () => {
     // 메뉴를 클릭했을 때 open을 반전시킨다. 즉, 열려있는 메뉴를 닫거나 닫혀있는 메뉴를 열게 한다.
     setOpen(!open);
-    // 메뉴를 클릭했을 때 네비게이션을 닫는다.
-    onCloseNav();
+
+    // 메뉴를 클릭했을 때 path가 존재한다면 네비게이션을 닫는다.
+    if(data.path !== "") {    
+      // alert(data.path)
+      onCloseNav();
+    }
   };
+
+  
 
   console.log("data:", data, "depth:", depth, "hasChild:", hasChild);
   /*
