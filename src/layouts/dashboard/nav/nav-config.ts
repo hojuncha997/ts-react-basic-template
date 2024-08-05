@@ -28,15 +28,15 @@ const navConfig = [
       },
       {
         title: "뎁스1",
-        // path: PATH_DASHBOARD.product.root,
-        path: "",
+        path: PATH_DASHBOARD.product.root,
+        // path: "",
         children: [
           {
             title: "뎁스2",
             // path: PATH_DASHBOARD.product.root,
             path: "",
             children: [
-              { title: "뎁스3메뉴1", path: PATH_DASHBOARD.product.root },
+              { title: "뎁스3메뉴1", path: PATH_DASHBOARD.product.list },
               { title: "뎁스3메뉴2", path: "/sub2" },
             ],
           },

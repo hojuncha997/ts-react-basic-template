@@ -206,7 +206,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     form.append("password", password);
 
     const response = await loginFormAxios.post("/api/member/login", form);
-    alert(JSON.stringify(response));
+    // alert(JSON.stringify(response));
     const { accessToken, user } = response.data;
 
     /*

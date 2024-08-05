@@ -46,7 +46,9 @@ export default function RoutesConfig() {
         {
           path: "product",
           children: [
-            { path: "", element: <Navigate to="list" replace /> },
+            // { path: "", element: <Navigate to="list" replace /> },
+            { path: "", element: <></> },
+
             { path: "list", element: <ProductListPage /> },
           ],
         },
@@ -86,3 +88,35 @@ export default function RoutesConfig() {
     },
   ]);
 }
+
+
+/*
+ user: {
+    root: path(ROOTS_DASHBOARD, '/user'),
+    new: path(ROOTS_DASHBOARD, '/user/new'),
+    list: path(ROOTS_DASHBOARD, '/user/list'),
+    cards: path(ROOTS_DASHBOARD, '/user/cards'),
+    profile: path(ROOTS_DASHBOARD, '/user/profile'),
+    account: path(ROOTS_DASHBOARD, '/user/account'),
+    edit: (name: string) => path(ROOTS_DASHBOARD, `/user/${name}/edit`),
+    demoEdit: path(ROOTS_DASHBOARD, `/user/reece-chung/edit`),
+  },
+
+
+  .....
+
+
+{
+  path: 'user',
+  children: [
+    { element: <Navigate to="/dashboard/user/profile" replace />, index: true },
+    { path: 'profile', element: <UserProfilePage /> },
+    { path: 'cards', element: <UserCardsPage /> },
+    { path: 'list', element: <UserListPage /> },
+    { path: 'new', element: <UserCreatePage /> },
+    { path: ':name/edit', element: <UserEditPage /> },
+    { path: 'account', element: <UserAccountPage /> },
+  ],
+},
+
+*/
