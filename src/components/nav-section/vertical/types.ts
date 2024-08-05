@@ -59,6 +59,7 @@ export type NavListRootProps = {
   depth: number;
   hasChild: boolean;
   onCloseNav: () => void;
+  // toggleSection: (subheader: string) => void;
 };
 
 // 소메뉴

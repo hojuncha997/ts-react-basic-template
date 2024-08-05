@@ -1,3 +1,4 @@
+import path from "path";
 import { PATH_DASHBOARD } from "../../../routes/paths";
 
 const navConfig = [
@@ -19,25 +20,26 @@ const navConfig = [
         // path: PATH_DASHBOARD.product.root,
         path: "",
         children: [
-          { title: "서브메뉴1", path: PATH_DASHBOARD.product.root },
+          // { title: "서브메뉴1", path: PATH_DASHBOARD.product.root },
+          { title: "서브메뉴2", path: "/sub2" },
           { title: "서브메뉴2", path: "/sub2" },
         ],
         // icon: ICONS.product,
       },
       {
-        title: "상품목록2",
+        title: "뎁스1",
         // path: PATH_DASHBOARD.product.root,
         path: "",
         children: [
           {
-            title: "서브메뉴1",
-            path: PATH_DASHBOARD.product.root,
+            title: "뎁스2",
+            // path: PATH_DASHBOARD.product.root,
+            path: "",
             children: [
-              { title: "서브메뉴1", path: PATH_DASHBOARD.product.root },
-              { title: "서브메뉴2", path: "/sub2" },
+              { title: "뎁스3메뉴1", path: PATH_DASHBOARD.product.root },
+              { title: "뎁스3메뉴2", path: "/sub2" },
             ],
           },
-          { title: "서브메뉴2", path: "/sub2" },
         ],
         // icon: ICONS.product,
       },
