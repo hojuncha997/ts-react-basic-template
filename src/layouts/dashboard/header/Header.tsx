@@ -22,7 +22,7 @@ function Header({ onOpenNav }: HeaderProps): ReactElement {
       )}
       {/* {isDesktop ? <h1>desktop</h1> : <h1 onClick={onOpenNav}>iii</h1>} */}
       {/* {width > 768 ? <h1>desktop</h1> : <h1>mobile</h1>} */}
-      <h1>Header</h1>
+      {/* <h1>Header</h1> */}
     </HeaderContainer>
   );
 }

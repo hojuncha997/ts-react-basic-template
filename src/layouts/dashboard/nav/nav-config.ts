@@ -29,10 +29,14 @@ const navConfig = [
         // path: PATH_DASHBOARD.product.root,
         path: "",
         children: [
-          { title: "서브메뉴1", path: PATH_DASHBOARD.product.root, children: [
-            { title: "서브메뉴1", path: PATH_DASHBOARD.product.root },
-            { title: "서브메뉴2", path: "/sub2" },
-          ], },
+          {
+            title: "서브메뉴1",
+            path: PATH_DASHBOARD.product.root,
+            children: [
+              { title: "서브메뉴1", path: PATH_DASHBOARD.product.root },
+              { title: "서브메뉴2", path: "/sub2" },
+            ],
+          },
           { title: "서브메뉴2", path: "/sub2" },
         ],
         // icon: ICONS.product,

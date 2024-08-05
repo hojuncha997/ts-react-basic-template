@@ -121,31 +121,18 @@ export default function NavList({
     // 메뉴를 클릭했을 때 open을 반전시킨다. 즉, 열려있는 메뉴를 닫거나 닫혀있는 메뉴를 열게 한다.
     setOpen(!open);
 
-    // 메뉴를 클릭했을 때 path가 존재한다면 네비게이션을 닫는다.
-    if(data.path !== "") {    
-      // alert(data.path)
-      onCloseNav();
+    // 메뉴를 클릭했을 때 path가 빈 문자열이라면 네비게이션바를 닫지 않고
+    if (data.path === "") {
+      return;
     }
+    onCloseNav();
   };
 
-  
-
   console.log("data:", data, "depth:", depth, "hasChild:", hasChild);
-  /*
-  data: {
-    "title": "상품목록",
-    "path": "/dashboard/product",
-    "children": [
-        {"title": "서브메뉴1", "path": "/sub1" },
-        {"title": "서브메뉴2", "path": "/sub2" }
-    ]
-  },
-    depth: 1,
-    hasChild: true
-    */
 
   return (
-    <div style={{ marginLeft: `${depth * 20}px` }}>
+    <>
+      {/* <div style={{ marginLeft: `${depth * 20}px` }}> */}
       <NavItem
         item={data}
         depth={depth}
@@ -169,6 +156,20 @@ export default function NavList({
           ))}
         </div>
       )}
-    </div>
+      {/* </div> */}
+    </>
   );
 }
+
+/*
+  data: {
+    "title": "상품목록",
+    "path": "/dashboard/product",
+    "children": [
+        {"title": "서브메뉴1", "path": "/sub1" },
+        {"title": "서브메뉴2", "path": "/sub2" }
+    ]
+  },
+    depth: 1,
+    hasChild: true
+    */

@@ -146,8 +146,9 @@ const StyledLink = styled(Link)`
 `;
 
 const ItemContent = styled.div<{ active: boolean; depth: number }>`
-  padding: 10px;
-  padding-left: ${(props) => props.depth * 20}px;
+  // padding: 10px;
+  // padding-left: ${(props) => props.depth * 5}px;
+  font-size: 0.9rem;
   cursor: pointer;
   background-color: ${(props) => (props.active ? "#078DEE1F" : "transparent")};
   &:hover {
@@ -170,12 +171,12 @@ export default function NavItem({
   const renderContent = (
     <ItemContent active={active} depth={depth} onClick={onClick} {...other}>
       {icon && <span style={{ marginRight: "10px" }}>{icon}</span>}
-      <span>{title}</span>
+      <span style={{ fontSize: "0.9rem", fontWeight: "600" }}>{title}</span>
       {!!children && <span style={{ float: "right" }}>{open ? "▼" : "▶"}</span>}
     </ItemContent>
   );
 
-  if(path === "") {
+  if (path === "") {
     return renderContent;
   }
 
@@ -186,7 +187,13 @@ export default function NavItem({
         href={path}
         target="_blank"
         rel="noopener noreferrer"
-        style={{ textDecoration: "none", color: "inherit" }}
+        style={{
+          textDecoration: "none",
+          // color: "inherit",
+          color: "blue",
+          fontSize: "0.8rem",
+          fontWeight: "600",
+        }}
       >
         {renderContent}
       </a>
