@@ -51,7 +51,7 @@ const NavContainer = styled.div<{ openNav: boolean }>`
   height: 100vh;
   border-right: 1px solid black;
   overflow-y: auto;
-  background-color: lightskyblue;
+  background-color: #eee;
   z-index: 1200;
   transition: left 0.3s ease;
 

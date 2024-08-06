@@ -5,7 +5,9 @@ import { PATH_DASHBOARD } from "./routes/paths";
 // ----------------------------------------------------------------------
 
 // export const HOST_API_KEY = process.env.REACT_APP_HOST_API_KEY || "";
-export const HOST_API_KEY = "http://localhost:8080";
+// export const HOST_API_KEY = "http://localhost:8080";
+export const HOST_API_KEY = "http://192.168.0.29:8080";
+
 export const URL = process.env.REACT_APP_CONTEXTPATH;
 export const MAIN_PAGE_URL = process.env.MAIN_PAGE_URL;
 

@@ -106,7 +106,9 @@ const StyledItem = styled.div<{
   font-weight: ${(props) => (props.active ? 600 : 400)};
   color: ${(props) =>
     props.disabled ? "#919EAB" : props.active ? "#212B36" : "#637381"};
-  background-color: ${(props) => (props.active ? "#078DEE1F" : "transparent")};
+  // background-color: ${(props) => (props.active ? "#078DEE1F" : "transparent")};
+    background-color: ${(props) => (props.active && props.depth === 1 ? "#078DEE1F" : "transparent")};
+
   cursor: ${(props) => (props.disabled ? "default" : "pointer")};
   &:hover {
     background-color: ${(props) =>
@@ -117,7 +119,7 @@ const StyledItem = styled.div<{
 const StyledIcon = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 16px;
+  margin-right: 1em;
   & > svg {
     width: 20px;
     height: 20px;
@@ -125,10 +127,13 @@ const StyledIcon = styled.div`
 `;
 
 const StyledDotIcon = styled.span<{ active: boolean }>`
-  width: 4px;
-  height: 4px;
+  // width: 4px;
+  // height: 4px;
+  width: ${(props) => (props.active ? "8px" : "4px")};
+  height: ${(props) => (props.active ? "8px" : "4px")};
+
   border-radius: 50%;
-  background-color: ${(props) => (props.active ? "#212B36" : "#919EAB")};
+  background-color: ${(props) => (props.active ? "orange" : "#212B36")};
 `;
 
 export default function NavItem({
