@@ -9,8 +9,8 @@ export default function NavList({
   data,
   depth,
   hasChild,
-  onCloseNav,
-}: NavListRootProps) {
+}: // onCloseNav,
+NavListRootProps) {
   const { pathname } = useLocation();
   const { active, isExternalLink } = useActiveLink(data.path);
   const [open, setOpen] = useState(active);
@@ -23,19 +23,9 @@ export default function NavList({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  // const handleToggle = () => {
-  //   if (hasChild) {
-  //     // 하위 메뉴가 있는 경우, 메뉴를 토글
-  //     setOpen(!open);
-  //   } else {
-  //     // 하위 메뉴가 없는 경우 (최종 메뉴 항목), 네비게이션 바를 닫는다
-  //     onCloseNav();
-  //   }
-
   const handleToggle = () => {
     setOpen(!open);
   };
-
 
   const handleClose = () => {
     setOpen(false);
@@ -57,10 +47,18 @@ export default function NavList({
           <NavSubList
             data={data.children ?? []}
             depth={depth}
-            onCloseNav={onCloseNav}
+            // onCloseNav={onCloseNav}
           />
         </Collapse>
       )}
+
+      {/* {hasChild && (
+        <NavSubList
+          data={data.children ?? []}
+          depth={depth}
+          onCloseNav={onCloseNav}
+        />
+      )} */}
     </>
   );
 }
@@ -68,10 +66,14 @@ export default function NavList({
 type NavListSubProps = {
   data: NavListProps[];
   depth: number;
-  onCloseNav: () => void;
+  // onCloseNav: () => void;
 };
 
-function NavSubList({ data, depth, onCloseNav }: NavListSubProps) {
+function NavSubList({
+  data,
+  depth,
+}: // onCloseNav
+NavListSubProps) {
   return (
     <>
       {data.map((list) => (
@@ -80,7 +82,7 @@ function NavSubList({ data, depth, onCloseNav }: NavListSubProps) {
           data={list}
           depth={depth + 1}
           hasChild={!!list.children}
-          onCloseNav={onCloseNav}
+          // onCloseNav={onCloseNav}
         />
       ))}
     </>

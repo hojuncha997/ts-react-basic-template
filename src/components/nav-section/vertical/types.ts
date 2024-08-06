@@ -58,7 +58,7 @@ export type NavListRootProps = {
   data: NavListProps;
   depth: number;
   hasChild: boolean;
-  onCloseNav: () => void;
+  // onCloseNav: () => void;
   // toggleSection: (subheader: string) => void;
 };
 
@@ -90,5 +90,5 @@ export type NavSectionProps = {
     items: NavListProps[];
   }[];
 
-  onCloseNav: () => void;
+  // onCloseNav: () => void;
 };

@@ -17,32 +17,30 @@ const navConfig = [
     items: [
       {
         title: "상품목록",
-        // path: PATH_DASHBOARD.product.root,
-        path: "",
-        children: [
-          // { title: "서브메뉴1", path: PATH_DASHBOARD.product.root },
-          { title: "서브메뉴2", path: "/sub2" },
-          { title: "서브메뉴2", path: "/sub2" },
-        ],
-        // icon: ICONS.product,
-      },
-      {
-        title: "뎁스1",
         path: PATH_DASHBOARD.product.root,
-        // path: "",
         children: [
-          {
-            title: "뎁스2",
-            // path: PATH_DASHBOARD.product.root,
-            path: "",
-            children: [
-              { title: "뎁스3메뉴1", path: PATH_DASHBOARD.product.list },
-              { title: "뎁스3메뉴2", path: "/sub2" },
-            ],
-          },
+          { title: "add", path: PATH_DASHBOARD.product.add },
+          { title: "list", path: PATH_DASHBOARD.product.list },
         ],
         // icon: ICONS.product,
       },
+      // {
+      //   title: "뎁스1",
+      //   path: PATH_DASHBOARD.product.root,
+      //   // path: "",
+      //   children: [
+      //     {
+      //       title: "뎁스2",
+      //       // path: PATH_DASHBOARD.product.root,
+      //       path: PATH_DASHBOARD.product.list,
+      //       children: [
+      //         { title: "뎁스3메뉴1", path: "/sub3" },
+      //         { title: "뎁스3메뉴2", path: "/sub2" },
+      //       ],
+      //     },
+      //   ],
+      //   // icon: ICONS.product,
+      // },
     ],
   },
   {

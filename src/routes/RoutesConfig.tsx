@@ -5,7 +5,7 @@ import DashboardLayout from "../layouts/dashboard/DashboardLayout";
 import GuestGuard from "../auth/GuestGuard";
 import AuthGuard from "../auth/AuthGuard";
 
-import { LoginPage, ProductListPage, Belt } from "./elements";
+import { LoginPage, ProductListPage, AddProduct, Belt } from "./elements";
 
 export default function RoutesConfig() {
   return useRoutes([
@@ -46,10 +46,16 @@ export default function RoutesConfig() {
         {
           path: "product",
           children: [
-            // { path: "", element: <Navigate to="list" replace /> },
-            { path: "", element: <></> },
-
+            // {
+            //   element: <Navigate to="/dashboard/product/list" replace />,
+            //   index: true,
+            // },
+            {
+              path: "", // 빈 문자열로 설정
+              element: <ProductListPage />, // 상품목록의 기본 페이지로 설정
+            },
             { path: "list", element: <ProductListPage /> },
+            { path: "add", element: <AddProduct /> },
           ],
         },
         {
@@ -88,7 +94,6 @@ export default function RoutesConfig() {
     },
   ]);
 }
-
 
 /*
  user: {

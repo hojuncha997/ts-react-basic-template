@@ -18,4 +18,8 @@ export const ProductListPage = Loadable(
   lazy(() => import("../pages/product/ProductListPage"))
 );
 
+export const AddProduct = Loadable(
+  lazy(() => import("../pages/product/AddProduct"))
+);
+
 export const Belt = Loadable(lazy(() => import("../pages/Belt")));

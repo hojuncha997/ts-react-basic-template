@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import useResponsive from "../../../hooks/useResponsive";
@@ -18,9 +18,18 @@ export function NavVertical({ openNav, onCloseNav }: NavVerticalProps) {
   const { pathname } = useLocation();
   const { width } = useResponsive();
 
+  // 페이지 이동에 따라 pathname이 변경되면서 네비게이션을 닫는다. 따라서 NavSectionVertical에 onCloseNav를 전달할 필요가 없다.
+  useEffect(() => {
+    if (openNav) {
+      onCloseNav();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
   const renderContent = (
     <div style={{ height: "100%", overflowY: "auto" }}>
-      <NavSectionVertical data={navConfig} onCloseNav={onCloseNav} />
+      {/* <NavSectionVertical data={navConfig} onCloseNav={onCloseNav} /> */}
+      <NavSectionVertical data={navConfig} />
     </div>
   );
 

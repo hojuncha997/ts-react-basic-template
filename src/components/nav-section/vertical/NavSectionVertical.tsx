@@ -26,7 +26,7 @@ const ToggleIcon = styled.span`
 
 export default function NavSectionVertical({
   data,
-  onCloseNav,
+  // onCloseNav,
   ...other
 }: NavSectionProps) {
   /* 
@@ -68,7 +68,7 @@ export default function NavSectionVertical({
                 data={list}
                 depth={1}
                 hasChild={!!list.children}
-                onCloseNav={onCloseNav}
+                // onCloseNav={onCloseNav}
                 // toggleSection={toggleSection}
               />
             ))}

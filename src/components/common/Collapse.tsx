@@ -59,6 +59,8 @@ interface CollapseProps {
 
 const Collapse: React.FC<CollapseProps> = ({ children, in: isOpen }) => {
   const [height, setHeight] = useState<number>(0);
+
+  // useRef를 사용하여 내용을 담은 div에 대한 참조를 생성
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

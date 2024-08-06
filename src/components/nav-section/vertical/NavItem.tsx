@@ -173,7 +173,7 @@ export default function NavItem({
     </StyledItem>
   );
 
-  if (path === "") {
+  if (children) {
     return renderContent;
   }
 
