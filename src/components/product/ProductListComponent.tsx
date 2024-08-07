@@ -9,8 +9,12 @@ import {
   TableRow,
 } from "../common";
 
+import useResponsive from "../../hooks/useResponsive";
+
 const ProductListComponent = () => {
   const [productList, setProductList] = useState([]);
+
+  const { width, height } = useResponsive();
 
   const fetchProductList = useCallback(async () => {
     const response = await getProductList();
@@ -23,6 +27,30 @@ const ProductListComponent = () => {
   useEffect(() => {
     fetchProductList();
   }, []);
+
+  if (width < 768) {
+    // 모바일
+    return (
+      <div>
+        {productList.map((product: any, index) => (
+          <div
+            style={{
+              border: "1px solid black",
+              margin: "20px 0",
+              borderRadius: "5px",
+            }}
+          >
+            <div key={product.id}>
+              <div>{product.pno}</div>
+              <div>{product.pname}</div>
+              <div>{product.price}</div>
+              <div>{product.pdesc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div>

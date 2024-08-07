@@ -23,6 +23,23 @@ function Header({ onOpenNav }: HeaderProps): ReactElement {
       {/* {isDesktop ? <h1>desktop</h1> : <h1 onClick={onOpenNav}>iii</h1>} */}
       {/* {width > 768 ? <h1>desktop</h1> : <h1>mobile</h1>} */}
       {/* <h1>Header</h1> */}
+      <div
+        style={{
+          fontSize: "1em",
+          color: "blue",
+          fontWeight: "600",
+          // fontStyle: "italic",
+          display: "flex",
+          alignItems: "center",
+          height: "100%",
+          // lineHeight: "1",
+          transform: "translateY(2px)",
+        }}
+      >
+        COMPANY
+      </div>
+
+      <div>Header2</div>
     </HeaderContainer>
   );
 }
@@ -30,20 +47,27 @@ function Header({ onOpenNav }: HeaderProps): ReactElement {
 export default Header;
 
 const HeaderContainer = styled.div`
-  border-bottom: 1px solid black;
-  padding: 16px;
+  border-bottom: 1px solid #eee;
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @media (min-width: 768px) {
+    padding: 1.5em;
+  }
 `;
 
 const HamburgerButton = styled.div`
-  position: fixed;
+  // position: fixed;
   top: 10px;
-  left: 10px;
+  // left: 10px;
   z-index: 1100;
   cursor: pointer;
   div {
     width: 25px;
-    height: 3px;
-    background-color: black;
+    height: 0.9px;
+    background-color: #000;
     margin: 5px 0;
   }
 

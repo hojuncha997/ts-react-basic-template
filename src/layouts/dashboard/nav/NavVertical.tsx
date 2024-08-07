@@ -49,9 +49,9 @@ const NavContainer = styled.div<{ openNav: boolean }>`
   left: ${(props) => (props.openNav ? "0" : `-${NAV.W_DASHBOARD}px`)};
   width: ${NAV.W_DASHBOARD}px;
   height: 100vh;
-  border-right: 1px solid black;
+  border-right: 1px solid #eee;
   overflow-y: auto;
-  background-color: #eee;
+  background-color: #fff;
   z-index: 1200;
   transition: left 0.3s ease;
 
