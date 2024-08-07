@@ -35,16 +35,88 @@ const ProductListComponent = () => {
         {productList.map((product: any, index) => (
           <div
             style={{
-              border: "1px solid black",
+              border: "1px solid grey",
               margin: "20px 0",
               borderRadius: "5px",
+              // backgroundColor: "lightcoral",
+              backgroundColor: "",
+
+              // &:hover: {
+              //   backgroundColor: "lightcoral",
+              // },
             }}
           >
             <div key={product.id}>
-              <div>{product.pno}</div>
-              <div>{product.pname}</div>
-              <div>{product.price}</div>
-              <div>{product.pdesc}</div>
+              <div
+                style={{
+                  borderTopLeftRadius: "5px",
+                  borderTopRightRadius: "5px",
+                  borderBottom: "1px solid grey",
+                  backgroundColor: "lightskyblue",
+                  fontWeight: "bold",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                {product.pno}
+                <input type="checkbox"></input>
+              </div>
+              <div
+                style={{
+                  // margin: "10px",
+                  padding: "10px",
+                  // border: "1px solid black",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  // alignContent: "center",
+                }}
+              >
+                <div style={{ padding: "" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      // borderBottom: "1px solid black",
+                      backgroundColor: "#EEE",
+                      fontWeight: "600",
+                      width: "90%",
+                    }}
+                  >
+                    <span>상품명</span>
+                  </div>
+                  <div>
+                    <span>{product.pname}</span>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    borderTop: "1px solid black",
+                    borderBottom: "1px solid black",
+                    backgroundColor: "#EEE",
+                    fontWeight: "600",
+                  }}
+                >
+                  <span>가격</span>
+                </div>
+                <div>{product.price}</div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    borderTop: "1px solid black",
+                    borderBottom: "1px solid black",
+                    backgroundColor: "#EEE",
+                    fontWeight: "600",
+                  }}
+                >
+                  <span>설명</span>
+                </div>
+                <div>{product.pdesc}</div>
+              </div>
             </div>
           </div>
         ))}
