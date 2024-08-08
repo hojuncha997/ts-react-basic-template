@@ -1,7 +1,7 @@
 import { ReactNode, useState } from "react";
 import { useAuthContext } from "../../auth/useAuthContext";
 
-export default function LoginPage(): JSX.Element {
+export default function  LoginPage(): JSX.Element {
   /*
   JwtContext에서 login 함수를 가져와서 사용.
   파라미터가 전달되고, API통신 뒤, 성공하면 그 값은 login함수 내부의 dispatch 함수를 통해 전달함.
@@ -14,6 +14,8 @@ export default function LoginPage(): JSX.Element {
     email: "",
     password: "",
   });
+
+  const [seePassword, setSeePassword] = useState<boolean>(false);
 
   /*
   
@@ -54,23 +56,34 @@ export default function LoginPage(): JSX.Element {
 
   return (
     <>
-      <div>
+      <div style={{width:"90%"}}>
         <form>
+          <div style={{display:"flex", flexDirection:"column"}}>
           <input
             type="text"
             name="email"
             value={user.email}
             onChange={handleChange}
             placeholder="Enter your email"
+            style={{ padding:"1em", border: "solid 1px #e3e3e3", borderRadius:"0.5em"}}
           />
           <input
-            type="password"
+            type={seePassword ? "text" : "password"}
             name="password"
             onChange={handleChange}
             placeholder="Enter your password"
+            style={{ padding:"1em", margin:"1em 0", border: "solid 1px #e3e3e3", borderRadius:"0.5em"}}
+
           />
-          <button onClick={handleSubmit}>--Login--</button>
+          </div>
+          <div style={{display:"flex" , justifyContent:"space-between"}}>
+            <button onClick={handleSubmit} style={{padding:"1em" , 
+              flex: "1", 
+              border: "none", 
+              borderRadius:"0.5em", backgroundColor:"lightskyblue", fontSize:"1em", fontWeight:"600", color:"ivory"}}>Login</button>
+          </div>
         </form>
+        <span onClick={() => setSeePassword((prev) => (!prev)) }>sdfd</span>
       </div>
     </>
   );
