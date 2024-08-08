@@ -81,3 +81,14 @@ export const setSession = (accessToken: string | null) => {
   delete axios.defaults.headers.Authorization;
   return null;
 };
+
+// ----------------------------------------------------------------------
+
+export const setRefreshtoken = (refreshToken: string | null) => {
+  if (refreshToken) {
+    localStorage.setItem("refreshToken", refreshToken);
+    return refreshToken;
+  }
+  localStorage.removeItem("refreshToken");
+  return null;
+}

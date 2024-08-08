@@ -8,7 +8,7 @@ import {
 } from "react";
 
 import localStorageAvailable from "../utils/localStorageAvailable";
-import { isValidToken, setSession } from "./utils";
+import { isValidToken, setSession, setRefreshtoken } from "./utils";
 import {
   ActionMapType,
   AuthStateType,
@@ -207,7 +207,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const response = await loginFormAxios.post("/api/member/login", form);
     // alert(JSON.stringify(response));
-    const { accessToken, user } = response.data;
+    const { accessToken, user, refreshToken } = response.data;
+    // alert("accessToken: " + accessToken);
+    // alert("refreshToken: " + refreshToken);
 
     /*
       서버에 다녀오지 않아도 클라이언트에서 테스트 할 수 있도록 jsonwebtoken 라이브러리를 사용하여 토큰을 생성
@@ -239,6 +241,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     // };
 
     setSession(accessToken);
+    setRefreshtoken(refreshToken);
 
     dispatch({
       type: Types.LOGIN,
