@@ -1,17 +1,29 @@
 import styled from "styled-components";
 import { ReactElement, useEffect, useState } from "react";
 import useResponsive from "../../../hooks/useResponsive";
+// import {s_Zahive, s_Orange_svg} from "../../../../public/images";
+import logo_Orange from "../../../../public/images/logo_Orange.svg";
+import Searchbar from "./Searchbar";
+
 
 type HeaderProps = {
   onOpenNav: () => void;
+  onOpenSearchbar: () => void;
 };
 
-function Header({ onOpenNav }: HeaderProps): ReactElement {
+function Header({ onOpenNav, onOpenSearchbar }: HeaderProps): ReactElement {
   const { width, height } = useResponsive();
 
+  // const [showSearchbar, setShowSearchbar] = useState<boolean>(false);  
+
+
+  const toggleSearchbar = () => {
+    // setShowSearchbar(!showSearchbar);
+    onOpenSearchbar();
+  }
   //   const [isDesktop, setIsDesktop] = useState(width > 768);
 
-  return (
+  return (<>
     <HeaderContainer>
       {width < 768 && (
         <HamburgerButton onClick={onOpenNav}>
@@ -36,11 +48,18 @@ function Header({ onOpenNav }: HeaderProps): ReactElement {
           transform: "translateY(2px)",
         }}
       >
-        COMPANY
-      </div>
-
-      <div>Header2</div>
+  {/* <img src="/images/logo_Orange.svg" alt="Zahive" /> */}
+  {/* <img src="/images/logo_Orange.svg" alt="Zahive" width="100" height="auto" /> */}
+  </div>
+  <div style={{display:"flex" , backgroundColor:"lightcoral", alignContent:"center"}}>
+    <div style={{ border:"1px solid grey", padding:"0.1rem"}} onClick={toggleSearchbar}>검색</div>
+    <div style={{ border:"1px solid grey", padding:"0.1rem"}}>MY</div>
+  </div>
+  {/* {showSearchbar && <Searchbar showSearchbar={showSearchbar} onToggle={toggleSearchbar}/>} */}
+  
     </HeaderContainer>
+      {/* <Searchbar showSearchbar={showSearchbar} onToggle={toggleSearchbar}/> */}
+</>
   );
 }
 

@@ -28,8 +28,15 @@ export function NavVertical({ openNav, onCloseNav }: NavVerticalProps) {
 
   const renderContent = (
     <div style={{ height: "100%", overflowY: "auto" }}>
+      <div style={{backgroundColor:"transparent", whiteSpace: "pre-wrap" , wordWrap: "break-word", overflowWrap: "break-word", padding:"0.5em", display:"flex", justifyContent:"space-between"}}>
+        <img src="/images/logo_Orange.svg" alt="Zahive" width="80px" height="auto" />
+        <div style={{border:"1px solid lightskyblue", borderRadius:"50px", backgroundColor:"transparent", padding: "0.3em" }} onClick={()=> onCloseNav()}>x</div>
+        
+      </div>
       {/* <NavSectionVertical data={navConfig} onCloseNav={onCloseNav} /> */}
-      <NavSectionVertical data={navConfig} />
+      <div style={{padding:"0.5em"}}>
+        <NavSectionVertical data={navConfig} />
+      </div>
     </div>
   );
 
