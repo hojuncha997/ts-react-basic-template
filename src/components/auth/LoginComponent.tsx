@@ -13,6 +13,8 @@ export default function LoginComponent({
     <>
       <StyledLoginComponent>
         <LoginFormContainer>
+        <LogoImage src="/images/logo_Orange.svg" alt="Zahive" />
+
           <LoginForm></LoginForm>
           <StyledSpan>간편 로그인</StyledSpan>
         </LoginFormContainer>
@@ -40,6 +42,13 @@ const LoginFormContainer = styled.form`
   background-color: #fff;
   border: 1px solid #e3e3e3;
   border-radius: 0.5em;
+`;
+
+const LogoImage = styled.img`
+  padding: 1em;
+  width: 100%;
+  max-width: 150px;
+  height: auto;
 `;
 
 const StyledSpan = styled.span`
