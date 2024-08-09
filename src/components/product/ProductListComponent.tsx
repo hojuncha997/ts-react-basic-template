@@ -52,7 +52,7 @@ const ProductListComponent = () => {
                   borderTopLeftRadius: "5px",
                   borderTopRightRadius: "5px",
                   borderBottom: "1px solid grey",
-                  backgroundColor: "lightskyblue",
+                  backgroundColor: "orange",
                   fontWeight: "bold",
                   display: "flex",
                   justifyContent: "space-between",
@@ -141,7 +141,7 @@ const ProductListComponent = () => {
               <th
                 style={{
                   border: "solid 1px black",
-                  backgroundColor: "lightskyblue",
+                  backgroundColor: "orange",
                 }}
               >
                 순번
@@ -149,7 +149,7 @@ const ProductListComponent = () => {
               <th
                 style={{
                   border: "solid 1px black",
-                  backgroundColor: "lightskyblue",
+                  backgroundColor: "orange",
                 }}
               >
                 상품명
@@ -157,7 +157,7 @@ const ProductListComponent = () => {
               <th
                 style={{
                   border: "solid 1px black",
-                  backgroundColor: "lightskyblue",
+                  backgroundColor: "orange",
                 }}
               >
                 가격
@@ -165,7 +165,7 @@ const ProductListComponent = () => {
               <th
                 style={{
                   border: "solid 1px black",
-                  backgroundColor: "lightskyblue",
+                  backgroundColor: "orange",
                 }}
               >
                 상품설명
