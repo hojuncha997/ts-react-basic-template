@@ -11,8 +11,8 @@ export default function  LoginPage(): JSX.Element {
   const { login } = useAuthContext();
 
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: "user9@aaa.com",
+    password: "1111",
   });
 
   const [seePassword, setSeePassword] = useState<boolean>(false);
@@ -63,13 +63,16 @@ export default function  LoginPage(): JSX.Element {
             type="text"
             name="email"
             value={user.email}
+            // value="user9@aaa.com"
             onChange={handleChange}
             placeholder="Enter your email"
+            
             style={{ padding:"1em", border: "solid 1px #e3e3e3", borderRadius:"0.5em"}}
           />
           <input
             type={seePassword ? "text" : "password"}
             name="password"
+            value={user.password}
             onChange={handleChange}
             placeholder="Enter your password"
             style={{ padding:"1em", margin:"1em 0", border: "solid 1px #e3e3e3", borderRadius:"0.5em"}}

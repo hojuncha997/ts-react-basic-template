@@ -3,11 +3,12 @@ import { PATH_DASHBOARD } from "../../../routes/paths";
 
 const navConfig = [
   {
-    subheader: "로그인",
+    subheader: "메인",
     items: [
       {
-        title: "로그인",
-        path: PATH_DASHBOARD.APP,
+        title: "메인",
+        path: "/",
+        // path: PATH_DASHBOARD.APP,
         // icon: ICONS.dashboard,
       },
     ],
@@ -53,7 +54,7 @@ const navConfig = [
         // icon: ICONS.product,
       },
       {
-        title: "네이버",
+        title: "사용자 페이지",
         path: "https://naver.com",
         // children: [{ title: "sdfsd" }],
         // icon: ICONS.product,

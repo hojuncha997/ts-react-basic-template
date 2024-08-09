@@ -5,7 +5,7 @@ import DashboardLayout from "../layouts/dashboard/DashboardLayout";
 import GuestGuard from "../auth/GuestGuard";
 import AuthGuard from "../auth/AuthGuard";
 
-import { LoginPage, ProductListPage, AddProduct, Belt } from "./elements";
+import { LoginPage, ProductListPage, AddProduct, Belt, MainContent } from "./elements";
 
 export default function RoutesConfig() {
   return useRoutes([
@@ -30,6 +30,7 @@ export default function RoutesConfig() {
       element: <MainLayout />,
       // element: <Navigate to="/auth/login" replace />,
       children: [
+        {path: "", element:<MainContent/> },
         { path: "product", element: <ProductListPage /> },
         // { path: "products", element: <ProductListPage children={null} /> },
       ],

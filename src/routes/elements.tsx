@@ -23,3 +23,5 @@ export const AddProduct = Loadable(
 );
 
 export const Belt = Loadable(lazy(() => import("../pages/Belt")));
+
+export const MainContent = Loadable(lazy(() => import("../layouts/main/MainContent")));
