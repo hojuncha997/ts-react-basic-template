@@ -24,4 +24,16 @@ export const AddProduct = Loadable(
 
 export const Belt = Loadable(lazy(() => import("../pages/Belt")));
 
-export const MainContent = Loadable(lazy(() => import("../layouts/main/MainContent")));
+export const MainContent = Loadable(
+  lazy(() => import("../layouts/main/MainContent"))
+);
+
+//
+
+export const UserLoginPage = Loadable(
+  lazy(() => import("../layouts/main/auth/Login"))
+);
+
+export const UserRegisterPage = Loadable(
+  lazy(() => import("../layouts/main/auth/Register"))
+);

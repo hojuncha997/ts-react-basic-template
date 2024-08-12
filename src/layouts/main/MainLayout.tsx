@@ -7,82 +7,138 @@ function MainLayout(): React.ReactElement {
 
   const handleNavigate = (path: string) => {
     navigate(path);
-  }
+  };
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      minHeight: '100vh' 
-    }}>
-      <div style={{ backgroundColor: "black", padding: "1em", color:"white", display:"flex", justifyContent:"center" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "black",
+          padding: "1em",
+          color: "white",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <span>이벤트 중입니다</span>
       </div>
-      <header 
+      <header
         style={{
           position: "sticky",
           top: 0,
           borderBottom: "1px solid grey",
           backgroundColor: "white",
-          zIndex: 1000
+          zIndex: 1000,
         }}
       >
-        <div style={{
-          width: "90%",
-          maxWidth: "1100px",
-          margin: "0 auto",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          height: "60px",
-          position: "relative"
-        }}>
-          <Link to="/" reloadDocument style={{
+        <div
+          style={{
+            width: "90%",
+            maxWidth: "1100px",
+            margin: "0 auto",
             display: "flex",
+            justifyContent: "space-between",
             alignItems: "center",
-            height: "100%"
-          }}>
-            <img src="/images/s_ZAHIVE.png" alt="Zahive" style={{ width: "150px" }} />
+            height: "60px",
+            position: "relative",
+          }}
+        >
+          <Link
+            to="/"
+            reloadDocument
+            style={{
+              display: "flex",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <img
+              src="/images/s_ZAHIVE.png"
+              alt="Zahive"
+              style={{ width: "150px" }}
+            />
           </Link>
-          
+
           <nav
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             style={{ position: "static" }}
           >
-            <ul style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center",
-              listStyle: "none",
-              height: "100%",
-              margin: 0,
-              padding: 0
-            }}>
-              <li style={{
-                margin: "0 1em",
+            <ul
+              style={{
                 display: "flex",
+                justifyContent: "flex-end",
                 alignItems: "center",
-                height: "100%"
-              }}>login</li>
-              <li style={{
-                marginRight: "1em",
+                listStyle: "none",
+                height: "100%",
+                margin: 0,
+                padding: 0,
+              }}
+            >
+              <li
+                style={{
+                  margin: "0 1em",
+                  display: "flex",
+                  alignItems: "center",
+                  height: "100%",
+                }}
+              >
+                MENU
+              </li>
+            </ul>
+          </nav>
+
+          <nav
+            // onMouseEnter={() => setIsHovered(true)}
+            // onMouseLeave={() => setIsHovered(false)}
+            style={{ position: "static" }}
+          >
+            <ul
+              style={{
                 display: "flex",
+                justifyContent: "flex-end",
                 alignItems: "center",
-                height: "100%"
-              }}>join</li>
-              <li onClick={() => handleNavigate("/dashboard")} style={{
-                cursor: "pointer",
-                margin: "0 1em",
-                color: "blue",
-                display: "flex",
-                alignItems: "center",
-                height: "100%"
-              }}>Dashboard</li>
+                listStyle: "none",
+                height: "100%",
+                margin: 0,
+                padding: 0,
+              }}
+            >
+              <li
+                style={{
+                  margin: "0 1em",
+                  display: "flex",
+                  alignItems: "center",
+                  height: "100%",
+                }}
+                onClick={() => handleNavigate("/login")}
+              >
+                login
+              </li>
+
+              <li
+                onClick={() => handleNavigate("/dashboard")}
+                style={{
+                  cursor: "pointer",
+                  margin: "0 1em",
+                  color: "blue",
+                  display: "flex",
+                  alignItems: "center",
+                  height: "100%",
+                }}
+              >
+                Dashboard
+              </li>
             </ul>
           </nav>
         </div>
-        <div 
+        <div
           style={{
             position: "absolute",
             top: "100%",
@@ -94,19 +150,21 @@ function MainLayout(): React.ReactElement {
             // backgroundColor: "#f8f8f8",
             backgroundColor: "white",
             borderTop: isHovered ? "1px solid #e0e0e0" : "none",
-            boxShadow: isHovered ? "0 4px 6px rgba(0,0,0,0.1)" : "none"
+            boxShadow: isHovered ? "0 4px 6px rgba(0,0,0,0.1)" : "none",
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <div style={{
-            width: "90%",
-            maxWidth: "1100px",
-            margin: "0 auto",
-            padding: "20px 0",
-            display: "flex",
-            justifyContent: "space-between"
-          }}>
+          <div
+            style={{
+              width: "90%",
+              maxWidth: "1100px",
+              margin: "0 auto",
+              padding: "20px 0",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
             <div>
               <h3>카테고리 1</h3>
               <ul>
@@ -134,27 +192,33 @@ function MainLayout(): React.ReactElement {
           </div>
         </div>
       </header>
-      
-      <main style={{
-        flex: 1,
-        width: "90%",
-        maxWidth: "1100px",
-        margin: "0 auto",
-        paddingTop: "20px"
-      }}>
+
+      <main
+        style={{
+          flex: 1,
+          width: "90%",
+          maxWidth: "1100px",
+          margin: "0 auto",
+          paddingTop: "20px",
+        }}
+      >
         <Outlet />
       </main>
-      <footer style={{ 
-        background: "#eee", 
-        marginTop: "2rem"
-      }}>
-        <div style={{ 
-          padding: "2rem", 
-          background: "#eee", 
-          width: "80%", 
-          maxWidth: "1100px", 
-          margin: "0 auto" 
-        }}>
+      <footer
+        style={{
+          background: "#eee",
+          marginTop: "2rem",
+        }}
+      >
+        <div
+          style={{
+            padding: "2rem",
+            background: "#eee",
+            width: "80%",
+            maxWidth: "1100px",
+            margin: "0 auto",
+          }}
+        >
           footer
         </div>
       </footer>
@@ -163,7 +227,6 @@ function MainLayout(): React.ReactElement {
 }
 
 export default MainLayout;
-
 
 /*
 position: sticky의 특징과 사용법:
@@ -207,4 +270,3 @@ position: sticky의 특징과 사용법:
 position: sticky를 사용하면 사용자 경험을 향상시키면서도 자연스러운 페이지 레이아웃을 유지할 수 있다. 
 특히 긴 페이지에서 중요한 요소를 항상 보이게 하고 싶을 때 유용하다.
 */
-
