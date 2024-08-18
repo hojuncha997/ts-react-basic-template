@@ -1,20 +1,21 @@
-import { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import getProductList from "../../api_dashboard/product/productApi";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeaderCell,
-  TableRow,
-} from "../common";
-
 import useResponsive from "../../hooks/useResponsive";
 
-const ProductListComponent = () => {
-  const [productList, setProductList] = useState([]);
+const host = "http://localhost:8080";
 
-  const { width, height } = useResponsive();
+interface Product {
+  id: number;
+  pno: number;
+  pname: string;
+  price: number;
+  pdesc: string;
+  uploadFileNames: string[];
+}
+
+const ProductListComponent: React.FC = () => {
+  const [productList, setProductList] = useState<Product[]>([]);
+  const { width } = useResponsive();
 
   const fetchProductList = useCallback(async () => {
     const response = await getProductList();
@@ -26,181 +27,100 @@ const ProductListComponent = () => {
 
   useEffect(() => {
     fetchProductList();
-  }, []);
+  }, [fetchProductList]);
 
-  if (width < 768) {
-    // 모바일
-    return (
-      <div>
-        {productList.map((product: any, index) => (
-          <div
-            style={{
-              border: "1px solid grey",
-              margin: "20px 0",
-              borderRadius: "5px",
-              // backgroundColor: "lightcoral",
-              backgroundColor: "",
-
-              // &:hover: {
-              //   backgroundColor: "lightcoral",
-              // },
-            }}
-          >
-            <div key={product.id}>
-              <div
-                style={{
-                  borderTopLeftRadius: "5px",
-                  borderTopRightRadius: "5px",
-                  borderBottom: "1px solid grey",
-                  backgroundColor: "orange",
-                  fontWeight: "bold",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                {product.pno}
-                <input type="checkbox"></input>
-              </div>
-              <div
-                style={{
-                  // margin: "10px",
-                  padding: "10px",
-                  // border: "1px solid black",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  // alignContent: "center",
-                }}
-              >
-                <div style={{ padding: "" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      // borderBottom: "1px solid black",
-                      backgroundColor: "#EEE",
-                      fontWeight: "600",
-                      width: "90%",
-                    }}
-                  >
-                    <span>상품명</span>
-                  </div>
-                  <div>
-                    <span>{product.pname}</span>
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    borderTop: "1px solid black",
-                    borderBottom: "1px solid black",
-                    backgroundColor: "#EEE",
-                    fontWeight: "600",
-                  }}
-                >
-                  <span>가격</span>
-                </div>
-                <div>{product.price}</div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    borderTop: "1px solid black",
-                    borderBottom: "1px solid black",
-                    backgroundColor: "#EEE",
-                    fontWeight: "600",
-                  }}
-                >
-                  <span>설명</span>
-                </div>
-                <div>{product.pdesc}</div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
+  const getGridTemplateColumns = () => {
+    if (width < 768) return 'repeat(2, 1fr)';
+    if (width < 1024) return 'repeat(3, 1fr)';
+    return 'repeat(4, 1fr)';
+  };
 
   return (
-    <div>
-      <h1 style={{ margin: "0" }}>ProductListComponent typescript</h1>
-
-      <div style={{ overflow: "true", minWidth: "200px" }}>
-        <table
-          style={{
-            border: "solid 1px black",
-            borderCollapse: "collapse",
-            width: "100%",
-          }}
-        >
-          <thead>
-            <tr>
-              <th
-                style={{
-                  border: "solid 1px black",
-                  backgroundColor: "orange",
-                }}
-              >
-                순번
-              </th>
-              <th
-                style={{
-                  border: "solid 1px black",
-                  backgroundColor: "orange",
-                }}
-              >
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: getGridTemplateColumns(),
+      // gap: '10px',
+      padding: '10px'
+    }}>
+      {productList.map((product: Product) => (
+        <div key={product.id} style={{
+          border: "1px solid grey",
+          borderRadius: "5px",
+        }}>
+          <div style={{
+            borderTopLeftRadius: "5px",
+            borderTopRightRadius: "5px",
+            borderBottom: "1px solid grey",
+            backgroundColor: "orange",
+            fontWeight: "bold",
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "5px"
+          }}>
+            {product.pno}
+            <input type="checkbox" />
+          </div>
+          <div style={{
+            padding: "10px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}>
+            <div style={{ marginBottom: "5px" }}>
+              <div style={{
+                backgroundColor: "#EEE",
+                fontWeight: "600",
+                padding: "2px 5px",
+              }}>
                 상품명
-              </th>
-              <th
-                style={{
-                  border: "solid 1px black",
-                  backgroundColor: "orange",
-                }}
-              >
+              </div>
+              <div>{product.pname}</div>
+            </div>
+            <div style={{ marginBottom: "5px" }}>
+              <div style={{
+                backgroundColor: "#EEE",
+                fontWeight: "600",
+                padding: "2px 5px",
+              }}>
                 가격
-              </th>
-              <th
+              </div>
+              <div>{product.price}</div>
+            </div>
+            <div style={{ marginBottom: "5px" }}>
+              <div style={{
+                backgroundColor: "#EEE",
+                fontWeight: "600",
+                padding: "2px 5px",
+              }}>
+                설명
+              </div>
+              <div>{product.pdesc}</div>
+            </div>
+            <div>
+              <div style={{
+                backgroundColor: "#EEE",
+                fontWeight: "600",
+                padding: "2px 5px",
+              }}>
+                사진
+              </div>
+              <img
+                alt="product"
                 style={{
-                  border: "solid 1px black",
-                  backgroundColor: "orange",
+                  width: '100%',
+                  height: 'auto',
+                  objectFit: 'cover',
+                  borderRadius: '5px',
+                  marginTop: '5px'
                 }}
-              >
-                상품설명
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {productList.map((product: any, index) => (
-              <tr key={product.id}>
-                <td
-                  style={{ border: "solid 1px black", backgroundColor: "#EEE" }}
-                >
-                  {product.pno}
-                </td>
-                <td
-                  style={{ border: "solid 1px black", backgroundColor: "#EEE" }}
-                >
-                  {product.pname}
-                </td>
-                <td
-                  style={{ border: "solid 1px black", backgroundColor: "#EEE" }}
-                >
-                  {product.price}
-                </td>
-                <td
-                  style={{ border: "solid 1px black", backgroundColor: "#EEE" }}
-                >
-                  {product.pdesc}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                src={`${host}/api/products/view/s_${product.uploadFileNames[0]}`}
+              />
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
+
 export default ProductListComponent;

@@ -4,14 +4,14 @@ export default function MainContent() {
       <h1>메인 컨텐츠</h1>
       <div
         style={{
-          backgroundColor: "lightskyblue",
           minHeight: "300px",
           borderRadius: "0.5em",
           padding: "1em",
           marginBottom: "2rem",
         }}
       >
-        sdfsd
+        <img src="/images/white_whale_20240813.png" alt="main" style={{ width: "100%" }} />
+        
       </div>
       <div
         style={{

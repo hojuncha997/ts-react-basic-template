@@ -20,7 +20,7 @@ export default function Login() {
         }}
       >
         <div style={{ border: "1px solid black", padding: "1em" }}>
-          <h1>로그인 페이지</h1>
+          <h5>로그인 페이지</h5>
           <form>
             <div style={{ marginBottom: "1em" }}>
               {/* <label htmlFor="userid">아이디</label> */}

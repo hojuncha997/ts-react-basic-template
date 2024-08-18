@@ -58,11 +58,12 @@ function MainLayout(): React.ReactElement {
               height: "100%",
             }}
           >
-            <img
-              src="/images/s_ZAHIVE.png"
+            ZAhive
+            {/* <img
+              src="/images/white_whale_20240813.png"
               alt="Zahive"
-              style={{ width: "150px" }}
-            />
+              style={{ width: "100px" }}
+            /> */}
           </Link>
 
           <nav

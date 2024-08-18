@@ -18,8 +18,8 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     width: 100%;
     height: 100%;
-    font-family: 'Arial', sans-serif;
-    
+    // font-family: 'Arial', sans-serif;
+    font-family: 'Noto Sans KR', serif, 'Arial', sans-serif;    
     
   }
   #root {
