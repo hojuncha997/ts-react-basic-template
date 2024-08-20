@@ -37,3 +37,7 @@ export const UserLoginPage = Loadable(
 export const UserRegisterPage = Loadable(
   lazy(() => import("../layouts/main/auth/Register"))
 );
+
+export const MemberList = Loadable(
+  lazy(() => import("../pages/member/MemberList"))
+);

@@ -14,14 +14,32 @@ const navConfig = [
     ],
   },
   {
-    subheader: "PRODUCT",
+    subheader: "회원",
     items: [
       {
-        title: "상품목록",
+        title: "회원관련",
+        path: PATH_DASHBOARD.member.root,
+        children: [{ title: "회원목록", path: PATH_DASHBOARD.member.list }],
+        // icon: ICONS.product,
+      },
+      {
+        title: "사용자 페이지",
+        path: "https://naver.com",
+        // children: [{ title: "sdfsd" }],
+        // icon: ICONS.product,
+      },
+    ],
+  },
+
+  {
+    subheader: "상품",
+    items: [
+      {
+        title: "상품관련",
         path: PATH_DASHBOARD.product.root,
         children: [
-          { title: "add", path: PATH_DASHBOARD.product.add },
-          { title: "list", path: PATH_DASHBOARD.product.list },
+          { title: "상품등록", path: PATH_DASHBOARD.product.add },
+          { title: "상품목록", path: PATH_DASHBOARD.product.list },
         ],
         // icon: ICONS.product,
       },
@@ -44,23 +62,23 @@ const navConfig = [
       // },
     ],
   },
-  {
-    subheader: "BELT",
-    items: [
-      {
-        title: "단증",
-        path: PATH_DASHBOARD.belt.root,
-        // children: [{ title: "sdfsd" }],
-        // icon: ICONS.product,
-      },
-      {
-        title: "사용자 페이지",
-        path: "https://naver.com",
-        // children: [{ title: "sdfsd" }],
-        // icon: ICONS.product,
-      },
-    ],
-  },
+  // {
+  //   subheader: "BELT",
+  //   items: [
+  //     {
+  //       title: "단증",
+  //       path: PATH_DASHBOARD.belt.root,
+  //       // children: [{ title: "sdfsd" }],
+  //       // icon: ICONS.product,
+  //     },
+  //     {
+  //       title: "사용자 페이지",
+  //       path: "https://naver.com",
+  //       // children: [{ title: "sdfsd" }],
+  //       // icon: ICONS.product,
+  //     },
+  //   ],
+  // },
 ];
 
 export default navConfig;

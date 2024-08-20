@@ -20,7 +20,7 @@ function MainLayout(): React.ReactElement {
       <div
         style={{
           backgroundColor: "black",
-          padding: "1em",
+          // padding: "1em",
           color: "white",
           display: "flex",
           justifyContent: "center",
@@ -45,27 +45,11 @@ function MainLayout(): React.ReactElement {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            height: "60px",
+            // height: "60px",
             position: "relative",
+            padding: "7px 0",
           }}
         >
-          <Link
-            to="/"
-            reloadDocument
-            style={{
-              display: "flex",
-              alignItems: "center",
-              height: "100%",
-            }}
-          >
-            ZAhive
-            {/* <img
-              src="/images/white_whale_20240813.png"
-              alt="Zahive"
-              style={{ width: "100px" }}
-            /> */}
-          </Link>
-
           <nav
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -88,12 +72,40 @@ function MainLayout(): React.ReactElement {
                   display: "flex",
                   alignItems: "center",
                   height: "100%",
+                  border: "1px solid black",
                 }}
               >
-                MENU
+                menu
               </li>
             </ul>
           </nav>
+
+          <Link
+            to="/"
+            reloadDocument
+            style={{
+              display: "flex",
+              alignItems: "center",
+              height: "100%",
+              textDecoration: "none",
+              fontWeight: "lighter",
+              border: "1px solid black",
+              backgroundColor: "lime",
+              color: "white",
+              textShadow: `-1px -1px 0 #000,
+              1px -1px 0 #000,
+              -1px 1px 0 #000,
+              1px 1px 0 #000`,
+              padding: "0 0.5em",
+            }}
+          >
+            Zahive
+            {/* <img
+              src="/images/white_whale_20240813.png"
+              alt="Zahive"
+              style={{ width: "100px" }}
+            /> */}
+          </Link>
 
           <nav
             // onMouseEnter={() => setIsHovered(true)}
@@ -113,10 +125,13 @@ function MainLayout(): React.ReactElement {
             >
               <li
                 style={{
-                  margin: "0 1em",
+                  // margin: "0 1em",
                   display: "flex",
                   alignItems: "center",
                   height: "100%",
+                  border: "1px solid black",
+                  // fontSize: "0.8rem",
+                  padding: "0 0.5em",
                 }}
                 onClick={() => handleNavigate("/login")}
               >
@@ -126,19 +141,22 @@ function MainLayout(): React.ReactElement {
               <li
                 onClick={() => handleNavigate("/dashboard")}
                 style={{
+                  padding: "0 0.5em",
                   cursor: "pointer",
-                  margin: "0 1em",
-                  color: "blue",
+                  // margin: "0 1em",
+
                   display: "flex",
                   alignItems: "center",
                   height: "100%",
+                  border: "1px solid black",
                 }}
               >
-                Dashboard
+                dashboard
               </li>
             </ul>
           </nav>
         </div>
+
         <div
           style={{
             position: "absolute",
@@ -197,30 +215,41 @@ function MainLayout(): React.ReactElement {
       <main
         style={{
           flex: 1,
-          width: "90%",
-          maxWidth: "1100px",
+          // width: "90%",
+          // maxWidth: "1100px",
           margin: "0 auto",
-          paddingTop: "20px",
+          // paddingTop: "20px",
         }}
       >
         <Outlet />
       </main>
       <footer
         style={{
-          background: "#eee",
+          // background: "#eee",
           marginTop: "2rem",
+          borderTop: "1px solid black",
         }}
       >
         <div
           style={{
-            padding: "2rem",
-            background: "#eee",
-            width: "80%",
-            maxWidth: "1100px",
+            // padding: "2rem",
+            // background: "#eee",
+            // width: "80%",
+            // maxWidth: "1100px",
             margin: "0 auto",
           }}
         >
-          footer
+          <div
+            style={{
+              display: "flex",
+              height: "100%",
+              borderCollapse: "collapse",
+            }}
+          >
+            <div style={{ border: "solid black 1px", flex: "1" }}>sdf</div>
+            <div style={{ border: "solid black 1px", flex: "1" }}>sdf</div>
+            <div style={{ border: "solid black 1px", flex: "1" }}>sdf</div>
+          </div>
         </div>
       </footer>
     </div>

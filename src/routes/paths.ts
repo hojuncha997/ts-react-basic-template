@@ -21,6 +21,11 @@ export const PATH_DASHBOARD = {
     app: path(ROOTS_DASHBOARD, "/app"),
   },
 
+  member: {
+    root: path(ROOTS_DASHBOARD, "/member"),
+    list: path(ROOTS_DASHBOARD, "/member/list"),
+  },
+
   product: {
     root: path(ROOTS_DASHBOARD, "/product"),
     add: path(ROOTS_DASHBOARD, "/product/add"),

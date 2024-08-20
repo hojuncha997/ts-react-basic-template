@@ -13,6 +13,7 @@ import {
   MainContent,
   UserLoginPage,
   UserRegisterPage,
+  MemberList,
 } from "./elements";
 
 export default function RoutesConfig() {
@@ -54,7 +55,13 @@ export default function RoutesConfig() {
           <DashboardLayout />
         </AuthGuard>
       ),
+
       children: [
+        {
+          path: "member",
+          element: "",
+          children: [{ path: "list", element: <MemberList /> }],
+        },
         {
           path: "product",
           children: [
