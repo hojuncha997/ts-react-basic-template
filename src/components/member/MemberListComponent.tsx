@@ -10,19 +10,29 @@ type Member = {
   social: boolean;
 };
 
+type PageableParams = {
+  page?: number;
+  size?: number;
+  sort?: string[];
+};
+
 export default function MemberListComponent() {
   const [memberList, setMemberList] = useState<Member[]>([]);
-
+  const [pageableParams, setPageableParams] = useState<PageableParams>({page: 1, size: 10});
   const navigate = useNavigate();
 
+
+
   const getMemberList = useCallback(async () => {
-    const response = await getMemberListApi();
+    const response = await getMemberListApi(pageableParams);
     // return response;
     if (response) {
       console.log(response);
       setMemberList(response.content);
     }
-  }, []);
+  }, [
+    pageableParams
+  ]);
 
   const handleNavigate = (id: number) => {
     navigate("/member");
