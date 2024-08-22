@@ -52,8 +52,8 @@ const ProductListComponent: React.FC = () => {
         <div
           key={product.pno}
           style={{
-            border: "1px solid grey",
-            // borderRadius: "5px",
+            border: "1px solid #e3e3e3",
+            borderRadius: "10px",
           }}
           onClick={() => handleMoveToDetail(product.pno)}
         >
@@ -94,7 +94,7 @@ const ProductListComponent: React.FC = () => {
             }}
           >
             <div style={{ marginBottom: "5px" }}>
-              <div
+              {/* <div
                 style={{
                   backgroundColor: "#EEE",
                   fontWeight: "600",
@@ -102,11 +102,11 @@ const ProductListComponent: React.FC = () => {
                 }}
               >
                 상품명
-              </div>
+              </div> */}
               <div>{product.pname}</div>
             </div>
             <div style={{ marginBottom: "5px" }}>
-              <div
+              {/* <div
                 style={{
                   backgroundColor: "#EEE",
                   fontWeight: "600",
@@ -114,11 +114,11 @@ const ProductListComponent: React.FC = () => {
                 }}
               >
                 가격
-              </div>
-              <div>{product.price}</div>
+              </div> */}
+              <div>{product.price}원</div>
             </div>
             <div style={{ marginBottom: "5px" }}>
-              <div
+              {/* <div
                 style={{
                   backgroundColor: "#EEE",
                   fontWeight: "600",
@@ -126,7 +126,7 @@ const ProductListComponent: React.FC = () => {
                 }}
               >
                 설명
-              </div>
+              </div> */}
               <div>{product.pdesc}</div>
             </div>
           </div>
