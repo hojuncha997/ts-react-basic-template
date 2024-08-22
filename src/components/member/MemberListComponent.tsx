@@ -1,6 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
 import { getMemberListApi } from "../../api_dashboard/member/memberApi";
 import { useNavigate } from "react-router-dom";
+import { PageableData } from "../../definitions";
+import PageComponent from "../common/PageComponent";
 
 type Member = {
   id: number;
@@ -17,30 +19,77 @@ type PageableParams = {
 };
 
 export default function MemberListComponent() {
-  const [memberList, setMemberList] = useState<Member[]>([]);
-  const [pageableParams, setPageableParams] = useState<PageableParams>({page: 1, size: 10});
+  // const [memberList, setMemberList] = useState<Member[]>([]);
+  const [pageableParams, setPageableParams] = useState<PageableParams>({
+    page: 0,
+    size: 10,
+  });
+
+  const [serverData, setServerData] = useState<PageableData<Member>>({
+    content: [],
+    pageable: {
+      sort: {
+        sorted: false,
+        unsorted: false,
+        empty: false,
+      },
+      offset: 0,
+      pageNumber: 0,
+      pageSize: 0,
+      paged: false,
+      unpaged: false,
+    },
+    totalPages: 0,
+    totalElements: 0,
+    last: false,
+    size: 0,
+    number: 0,
+    sort: {
+      sorted: false,
+      unsorted: false,
+      empty: false,
+    },
+    numberOfElements: 0,
+    first: false,
+    empty: false,
+  });
+
   const navigate = useNavigate();
 
-
+  // const getMemberList = useCallback(async () => {
+  //   const response = await getMemberListApi(pageableParams);
+  //   // return response;
+  //   if (response) {
+  //     console.log(response);
+  //     // setMemberList(response.content);
+  //     setServerData(response);
+  //   }
+  // }, [pageableParams]);
 
   const getMemberList = useCallback(async () => {
-    const response = await getMemberListApi(pageableParams);
-    // return response;
-    if (response) {
-      console.log(response);
-      setMemberList(response.content);
+    try {
+      const response = await getMemberListApi(pageableParams);
+      if (response) {
+        console.log(response);
+        setServerData(response);
+      }
+    } catch (error) {
+      console.error("Failed to fetch member list:", error);
+      // 에러 처리 로직 (예: 사용자에게 알림)
     }
-  }, [
-    pageableParams
-  ]);
+  }, [pageableParams]); // pageableParams를 의존성 배열에 추가
 
   const handleNavigate = (id: number) => {
     navigate("/member");
   };
 
+  const handlePageChange = (newPage: number) => {
+    setPageableParams((prev) => ({ ...prev, page: newPage }));
+  };
+
   useEffect(() => {
     getMemberList();
-  }, []);
+  }, [getMemberList]);
 
   return (
     <div>
@@ -127,7 +176,8 @@ export default function MemberListComponent() {
               <th style={{ border: "solid 1px black" }}>roleNames</th>
               <th style={{ border: "solid 1px black" }}>social</th>
             </tr>
-            {memberList.map((member, index) => (
+            {/* {memberList.map((member, index) => ( */}
+            {serverData.content.map((member, index) => (
               <tr
                 style={{
                   backgroundColor: index % 2 === 0 ? "white" : "#f2f2f2",
@@ -147,6 +197,12 @@ export default function MemberListComponent() {
             ))}
           </tbody>
         </table>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <PageComponent
+            serverData={serverData}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );
