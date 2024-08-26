@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { ReactElement, useEffect, useRef, useState } from "react";
 import useResponsive from "../../../hooks/useResponsive";
 // import {s_Zahive, s_Orange_svg} from "../../../../public/images";
-import logo_Orange from "../../../../public/images/logo_Orange.svg";
+// import logo_Orange from "../../../../public/images/logo_Orange.svg";
+import search from "../../../../public/images/icons/search.svg";
 import Searchbar from "./Searchbar";
 
 type HeaderProps = {
@@ -76,20 +77,15 @@ function Header({ onOpenNav, onOpenSearchbar }: HeaderProps): ReactElement {
         <div
           style={{
             display: "flex",
-            backgroundColor: "lightcoral",
+            // backgroundColor: "lightcoral",
             alignContent: "center",
           }}
         >
-          <div
-            style={{ border: "1px solid grey", padding: "0.1rem" }}
-            onClick={toggleSearchbar}
-          >
-            검색
+          <div style={{ padding: "0 1em" }} onClick={toggleSearchbar}>
+            <img src="/icons/search.svg" alt="검색" width="24" height="auto" />
           </div>
           <div
             style={{
-              border: "1px solid grey",
-              padding: "0.1rem",
               position: "relative",
               display: "inline-block",
             }}
@@ -97,7 +93,12 @@ function Header({ onOpenNav, onOpenSearchbar }: HeaderProps): ReactElement {
             ref={myMenuRef}
             onClick={() => setShowMyMenu(!showMyMenu)}
           >
-            MY
+            <img
+              src="/icons/user.svg"
+              alt="마이페이지"
+              width="24"
+              height="auto"
+            />
           </div>
           {showMyMenu && (
             <div
