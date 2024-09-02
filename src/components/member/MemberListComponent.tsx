@@ -4,6 +4,21 @@ import { useNavigate } from "react-router-dom";
 import { PageableData } from "../../definitions";
 import PageComponent from "../common/PageComponent";
 
+import useCustomMove from "../../hooks/useCustomMove";
+
+// return {
+//   moveToList,
+//   moveToPage,
+//   moveToModify: (num: number, basePath?: string) =>
+//     moveToPage(num, "modify", basePath),
+//   moveToRead: (num: number, basePath?: string) =>
+//     moveToPage(num, "read", basePath),
+//   page,
+//   size,
+//   refresh,
+// };
+// };
+
 type Member = {
   id: number;
   nickname: string;
@@ -24,6 +39,8 @@ export default function MemberListComponent() {
     page: 0,
     size: 10,
   });
+
+  const { moveToList, moveToModify, moveToRead, page, size } = useCustomMove();
 
   const [serverData, setServerData] = useState<PageableData<Member>>({
     content: [],
@@ -66,9 +83,15 @@ export default function MemberListComponent() {
   //   }
   // }, [pageableParams]);
 
+  const handleMemberClick = (memberId: number) => {
+    moveToRead(memberId, "/member");
+  };
+
   const getMemberList = useCallback(async () => {
     try {
-      const response = await getMemberListApi(pageableParams);
+      // const response = await getMemberListApi(pageableParams);
+      const response = await getMemberListApi({ page, size });
+
       if (response) {
         console.log(response);
         setServerData(response);
@@ -77,14 +100,13 @@ export default function MemberListComponent() {
       console.error("Failed to fetch member list:", error);
       // 에러 처리 로직 (예: 사용자에게 알림)
     }
-  }, [pageableParams]); // pageableParams를 의존성 배열에 추가
-
-  const handleNavigate = (id: number) => {
-    navigate("/member");
-  };
+    // }, [pageableParams]); // pageableParams를 의존성 배열에 추가
+  }, [page, size]);
 
   const handlePageChange = (newPage: number) => {
-    setPageableParams((prev) => ({ ...prev, page: newPage }));
+    // setPageableParams((prev) => ({ ...prev, page: newPage }));
+    // moveToList({ page: newPage, size: pageableParams.size });
+    moveToList({ page: newPage, size: pageableParams.size });
   };
 
   useEffect(() => {
